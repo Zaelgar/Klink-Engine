@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="WinMain.cpp" />
+    <ClCompile Include="GameState.cpp" />
+    <ClCompile Include="Fish.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Shark.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="GameState.h" />
+    <ClInclude Include="Fish.h">
+      <Filter>Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Shark.h">
+      <Filter>Inc</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Inc">
+      <UniqueIdentifier>{6ec13f1c-93d7-4405-9a4c-d257b393a582}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src">
+      <UniqueIdentifier>{6c651a37-90c7-417a-9180-a45df375f341}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

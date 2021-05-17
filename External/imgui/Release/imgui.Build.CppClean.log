@@ -1,0 +1,15 @@
+c:\klink\release\imgui.pdb
+c:\klink\external\imgui\release\implot.obj
+c:\klink\external\imgui\release\imgui_widgets.obj
+c:\klink\external\imgui\release\imgui_impl_win32.obj
+c:\klink\external\imgui\release\imgui_impl_dx11.obj
+c:\klink\external\imgui\release\imgui_draw.obj
+c:\klink\external\imgui\release\imgui_demo.obj
+c:\klink\external\imgui\release\imgui.obj
+c:\klink\release\imgui.lib
+c:\klink\external\imgui\release\imgui.tlog\cl.command.1.tlog
+c:\klink\external\imgui\release\imgui.tlog\cl.read.1.tlog
+c:\klink\external\imgui\release\imgui.tlog\cl.write.1.tlog
+c:\klink\external\imgui\release\imgui.tlog\lib-link.read.1.tlog
+c:\klink\external\imgui\release\imgui.tlog\lib-link.write.1.tlog
+c:\klink\external\imgui\release\imgui.tlog\lib.command.1.tlog

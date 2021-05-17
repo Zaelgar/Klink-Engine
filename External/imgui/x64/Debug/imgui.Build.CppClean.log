@@ -1,0 +1,16 @@
+c:\klink\x64\debug\imgui.pdb
+c:\klink\x64\debug\imgui.idb
+c:\klink\external\imgui\x64\debug\implot.obj
+c:\klink\external\imgui\x64\debug\imgui_widgets.obj
+c:\klink\external\imgui\x64\debug\imgui_impl_win32.obj
+c:\klink\external\imgui\x64\debug\imgui_impl_dx11.obj
+c:\klink\external\imgui\x64\debug\imgui_draw.obj
+c:\klink\external\imgui\x64\debug\imgui_demo.obj
+c:\klink\external\imgui\x64\debug\imgui.obj
+c:\klink\x64\debug\imgui.lib
+c:\klink\external\imgui\x64\debug\imgui.tlog\cl.command.1.tlog
+c:\klink\external\imgui\x64\debug\imgui.tlog\cl.read.1.tlog
+c:\klink\external\imgui\x64\debug\imgui.tlog\cl.write.1.tlog
+c:\klink\external\imgui\x64\debug\imgui.tlog\lib-link.read.1.tlog
+c:\klink\external\imgui\x64\debug\imgui.tlog\lib-link.write.1.tlog
+c:\klink\external\imgui\x64\debug\imgui.tlog\lib.command.1.tlog

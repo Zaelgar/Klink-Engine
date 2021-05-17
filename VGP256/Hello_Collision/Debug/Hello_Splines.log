@@ -1,0 +1,23 @@
+﻿  GameState.cpp
+c:\klink\framework\jmath\inc\vector2.h(248): warning C4018: '<': signed/unsigned mismatch
+c:\klink\framework\jmath\inc\vector2.h(258): warning C4018: '<': signed/unsigned mismatch
+c:\klink\framework\jmath\inc\vector3.h(246): warning C4018: '<': signed/unsigned mismatch
+c:\klink\framework\physics\inc\physicsworld.h(11): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\klink\framework\ai\inc\graph.h(108): warning C4018: '>': signed/unsigned mismatch
+  c:\klink\framework\ai\inc\graph.h(98): note: while compiling class template member function 'bool Klink::AI::Graph<Klink::AI::MapNode>::DisconnectNode(size_t)'
+  c:\klink\framework\ai\inc\graphutil.h(211): note: see reference to function template instantiation 'bool Klink::AI::Graph<Klink::AI::MapNode>::DisconnectNode(size_t)' being compiled
+  c:\klink\framework\ai\inc\graphutil.h(23): note: see reference to class template instantiation 'Klink::AI::Graph<Klink::AI::MapNode>' being compiled
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\filesystem(2392): note: see reference to class template instantiation 'std::chrono::time_point<std::filesystem::_File_time_clock,std::filesystem::_File_time_clock::duration>' being compiled
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\type_traits(616): note: see reference to class template instantiation 'std::basic_string_view<wchar_t,std::char_traits<wchar_t>>' being compiled
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\xstring(2122): note: see reference to class template instantiation 'std::is_convertible<const _StringViewIsh &,std::basic_string_view<wchar_t,std::char_traits<wchar_t>>>' being compiled
+          with
+          [
+              _StringViewIsh=const wchar_t *
+          ]
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\xstring(2122): note: see reference to variable template 'const bool conjunction_v<std::is_convertible<wchar_t const * const &,std::basic_string_view<wchar_t,std::char_traits<wchar_t> > >,std::negation<std::is_convertible<wchar_t const * const &,wchar_t const *> > >' being compiled
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\xstring(2281): note: see reference to alias template instantiation 'std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>::_Is_string_view_ish<_StringViewIsh>' being compiled
+          with
+          [
+              _StringViewIsh=const wchar_t *
+          ]
+  Hello_Splines.vcxproj -> C:\Klink\Debug\Hello_Splines.exe

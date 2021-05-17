@@ -1,0 +1,16 @@
+c:\klink\framework\machinelearning\debug\ml.pch
+c:\klink\debug\ml.pdb
+c:\klink\debug\ml.idb
+c:\klink\framework\machinelearning\debug\precompiled.obj
+c:\klink\framework\machinelearning\debug\datasets.obj
+c:\klink\framework\machinelearning\debug\geneticalgorithm.obj
+c:\klink\framework\machinelearning\debug\linearregression.obj
+c:\klink\framework\machinelearning\debug\logisticregression.obj
+c:\klink\framework\machinelearning\debug\neuralnetwork.obj
+c:\klink\debug\ml.lib
+c:\klink\framework\machinelearning\debug\ml.tlog\cl.command.1.tlog
+c:\klink\framework\machinelearning\debug\ml.tlog\cl.read.1.tlog
+c:\klink\framework\machinelearning\debug\ml.tlog\cl.write.1.tlog
+c:\klink\framework\machinelearning\debug\ml.tlog\lib-link.read.1.tlog
+c:\klink\framework\machinelearning\debug\ml.tlog\lib-link.write.1.tlog
+c:\klink\framework\machinelearning\debug\ml.tlog\lib.command.1.tlog

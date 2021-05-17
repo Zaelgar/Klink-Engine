@@ -1,0 +1,180 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="Inc\State.h">
+      <Filter>Inc\Finite State Machine</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\StateMachine.h">
+      <Filter>Inc\Finite State Machine</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\Graph.h">
+      <Filter>Inc\Pathfinding</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\GraphSearch.h">
+      <Filter>Inc\Pathfinding</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\GraphUtil.h">
+      <Filter>Inc\Pathfinding</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\AI.h">
+      <Filter>Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\Common.h">
+      <Filter>Inc\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\SteeringBehaviour.h">
+      <Filter>Inc\Steering</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\SteeringModule.h">
+      <Filter>Inc\Steering</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Precompiled.h">
+      <Filter>Inc\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\SeekBehaviour.h">
+      <Filter>Inc\Steering\Behaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\ArriveBehaviour.h">
+      <Filter>Inc\Steering\Behaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\PursuitBehaviour.h">
+      <Filter>Inc\Steering\Behaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\Agent.h">
+      <Filter>Inc\Steering</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\AIWorld.h">
+      <Filter>Inc\World</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\FleeBehaviour.h">
+      <Filter>Inc\Steering\Behaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\Sensor.h">
+      <Filter>Inc\Perception</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\PerceptionModule.h">
+      <Filter>Inc\Perception</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\MemoryRecord.h">
+      <Filter>Inc\Perception</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\VisualSensor.h">
+      <Filter>Inc\Perception\Sensors</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\EvadeBehaviour.h">
+      <Filter>Inc\Steering\Behaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\WanderBehaviour.h">
+      <Filter>Inc\Steering\Behaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\ObstacleAvoidanceBehaviour.h">
+      <Filter>Inc\Steering\Behaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\WallAvoidanceBehaviour.h">
+      <Filter>Inc\Steering\Behaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\SeparationBehaviour.h">
+      <Filter>Inc\Steering\Behaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\AlignmentBehaviour.h">
+      <Filter>Inc\Steering\Behaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\CohesionBehaviour.h">
+      <Filter>Inc\Steering\Behaviours</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Inc">
+      <UniqueIdentifier>{1ae55fe5-090c-45b4-892c-83e657da2ec9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Inc\Pathfinding">
+      <UniqueIdentifier>{31175290-e37d-42d4-bf79-c7d04c0fd1b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Inc\Finite State Machine">
+      <UniqueIdentifier>{bce05f3b-3e6d-4e8d-9ec8-430f4aee9b3f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Inc\Base">
+      <UniqueIdentifier>{845510af-b1cc-4061-ad45-69d90f38d602}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src">
+      <UniqueIdentifier>{98db0dc4-dbdb-4bc1-87c3-9e5806b19be3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Inc\Steering">
+      <UniqueIdentifier>{744e9802-37cd-4fca-a281-5f4b352a396e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Inc\Steering\Behaviours">
+      <UniqueIdentifier>{c7b1b73e-8d4c-4063-9e87-3dae8186a5b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Behaviours">
+      <UniqueIdentifier>{a4105404-ae30-4dcd-8183-a1580fd7cce4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Inc\World">
+      <UniqueIdentifier>{174221fa-7e75-4817-9888-33b8ba0e3fc3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Inc\Perception">
+      <UniqueIdentifier>{d8d8b157-f14e-4131-9dbe-74700097d939}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Inc\Perception\Sensors">
+      <UniqueIdentifier>{d01e363e-ec46-4c57-9b53-c1336f1e3608}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Sensors">
+      <UniqueIdentifier>{7d1bc665-d74f-40e7-8c21-36c2e1de8cc9}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Src\Precompiled.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\SteeringModule.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\SeekBehaviour.cpp">
+      <Filter>Src\Behaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\FleeBehaviour.cpp">
+      <Filter>Src\Behaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\AIWorld.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Agent.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\PerceptionModule.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Sensor.cpp">
+      <Filter>Src\Sensors</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\VisualSensor.cpp">
+      <Filter>Src\Sensors</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\ArriveBehaviour.cpp">
+      <Filter>Src\Behaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\PursuitBehaviour.cpp">
+      <Filter>Src\Behaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\EvadeBehaviour.cpp">
+      <Filter>Src\Behaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\WanderBehaviour.cpp">
+      <Filter>Src\Behaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\ObstacleAvoidanceBehaviour.cpp">
+      <Filter>Src\Behaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\WallAvoidanceBehaviour.cpp">
+      <Filter>Src\Behaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\SeparationBehaviour.cpp">
+      <Filter>Src\Behaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\CohesionBehaviour.cpp">
+      <Filter>Src\Behaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\AlignmentBehaviour.cpp">
+      <Filter>Src\Behaviours</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

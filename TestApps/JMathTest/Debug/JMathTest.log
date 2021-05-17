@@ -1,0 +1,8 @@
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Microsoft.Common.CurrentVersion.targets(1879,5): warning : The referenced project '..\..\Core\Core.vcxproj' does not exist.
+C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Microsoft.Common.CurrentVersion.targets(1879,5): warning : The referenced project '..\..\JMath\JMath.vcxproj' does not exist.
+  stdafx.cpp
+c:\klink\framework\jmath\inc\vector2.h(248): warning C4018: '<': signed/unsigned mismatch
+c:\klink\framework\jmath\inc\vector2.h(258): warning C4018: '<': signed/unsigned mismatch
+c:\klink\framework\jmath\inc\vector3.h(259): warning C4018: '<': signed/unsigned mismatch
+  Vector3Test.cpp
+  JMathTest.vcxproj -> C:\Klink\Debug\JMathTest.dll
