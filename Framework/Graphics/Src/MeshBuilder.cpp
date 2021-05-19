@@ -1042,37 +1042,8 @@ void MeshBuilder::CalculateTangentsAndBinormals(BaseMesh<Vertex>& mesh)
 	}
 }
 
-void Klink::Graphics::MeshBuilder::CalculateNormals(BaseMesh<Vertex>& mesh)
-{
-	//Vector3 vert1;
-	//Vector3 vert2;
-	//Vector3 vert3;
-	//
-	//Vector3 vec1;
-	//Vector3 vec2;
-	//Vector3 faceNormal;
-	//for (int index = 0; index < mesh.mIndices.size();)
-	//{
-	//	// Grab the three verts that make up a face
-	//	vert1 = mesh.mVertices[mesh.mIndices[index]].position;
-	//	vert2 = mesh.mVertices[mesh.mIndices[index+1]].position;
-	//	vert3 = mesh.mVertices[mesh.mIndices[index+2]].position;
-	//
-	//	vec1 = vert2 - vert1;
-	//	vec2 = vert3 - vert1;
-	//
-	//	// No need to normalize as we will as we will be doing that later below
-	//	faceNormal = Cross(vec1, vec2).Normalized();
-	//
-	//	// Since we already have the face and the verts that make that face, we can simply add the normal to its current normals.
-	//	// We will normalize it in another loop below when all possible face normals are accounted for
-	//	mesh.mVertices[mesh.mIndices[index]].normal += faceNormal;
-	//	mesh.mVertices[mesh.mIndices[index + 1]].normal += faceNormal;
-	//	mesh.mVertices[mesh.mIndices[index + 2]].normal += faceNormal;
-	//
-	//	index += 3;
-	//}
-	 
+void MeshBuilder::CalculateNormals(BaseMesh<Vertex>& mesh)
+{	 
 	for (auto& vert : mesh.mVertices)
 	{
 		vert.normal = Vector3::Zero();

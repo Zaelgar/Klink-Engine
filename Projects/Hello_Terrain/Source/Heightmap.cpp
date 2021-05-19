@@ -77,3 +77,12 @@ void Klink::Terrain::Heightmap::RandomizeHeightValues(float minRandom = -0.005f,
 		height += Klink::JMath::Random::RandomFloatUniform(minRandom, maxRandom);
 	}
 }
+
+Heightmap Klink::Terrain::Heightmap::GeneratePerlinHeightmap(int size)
+{
+	Heightmap hm;
+
+
+
+	return hm;
+}

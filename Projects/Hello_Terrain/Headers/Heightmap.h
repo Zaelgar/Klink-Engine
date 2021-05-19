@@ -16,6 +16,8 @@ namespace Klink::Terrain
 
 		void RandomizeHeightValues(float minRandom, float maxRandom);
 
+		Heightmap GeneratePerlinHeightmap(int size);
+
 		std::vector<float> heightmap;
 		int xSize = 0;
 		int ySize = 0;

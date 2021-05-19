@@ -2,3 +2,15 @@ Assets/Images/
 Assets/Models/
 Assets/SheepVsWolf/
 Notes/
+Assets/Terrain/
+External/DirectXTK/Bin/Desktop_2017/x64/
+Framework/AI/x64/
+Framework/Core/x64/
+Framework/Graphics/x64/
+Framework/Input/x64/
+Framework/JMath/x64/
+Framework/MachineLearning/x64/
+Framework/Physics/x64/
+Projects/Hello_Terrain/x64/
+x64/
+.vs/

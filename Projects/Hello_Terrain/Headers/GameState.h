@@ -35,17 +35,35 @@ private:
 	using TransformBuffer = Klink::Graphics::TypedConstantBuffer<TransformData>;
 	TransformBuffer mTransformBuffer;
 
+
 	struct OptionsData
 	{
-		Colours::Colour grassColour;
+		// Low settings
+		float lowHeightLimit;   // From 0 -> this number
+		float padding0[3];
 
-		Colours::Colour rockColour;
-
-		float grassThreshold;
+		float lowSlopeThreshold;
 		float padding1[3];
 
-		float blendingAmount;
+		float lowScaling;       // UV Scaling factor for low texture
 		float padding2[3];
+
+		// Mid settings
+		float midHeightLimit;   // From lowHeightLimit -> this number
+		float padding3[3];
+
+		float midSlopeThreshold;
+		float padding4[3];
+
+		float midScaling;       // UV Scaling factor for mid texture
+		float padding5[3];
+
+		// High setting
+		float highSlopeThreshold;
+		float padding6[3];
+
+		float highScaling;      // UV Scaling factor for high texture
+		float padding7[3];
 	};
 	using OptionsBuffer = Klink::Graphics::TypedConstantBuffer<OptionsData>;
 	OptionsBuffer mOptionsBuffer;
@@ -91,13 +109,28 @@ private:
 	Klink::Graphics::MeshBuffer mTerrainMeshBuffer;
 	Klink::Graphics::Mesh mTerrainMesh;
 
-	Klink::Graphics::TextureID mTerrainDiffuse;
-	Klink::Graphics::TextureID mTerrainNormal;
+	float mLowHeightLimit;
+	Klink::Graphics::TextureID mTerrainLowDiffuse;
+	Klink::Graphics::TextureID mTerrainLowNormal;
+
+	float mMidHeightLimit;
+	Klink::Graphics::TextureID mTerrainMidDiffuse;
+	Klink::Graphics::TextureID mTerrainMidNormal;
+
+	float mHighHeightLimit;
+	Klink::Graphics::TextureID mTerrainHighDiffuse;
+	Klink::Graphics::TextureID mTerrainHighNormal;
 
 
+	// Skycube
+	struct SkyboxData
+	{
+		Matrix4 wvp;
+	};
+	using SkyboxBuffer = Klink::Graphics::TypedConstantBuffer<SkyboxData>;
+	SkyboxBuffer mSkyboxBuffer;
 	Klink::Graphics::MeshBuffer mCubeMesh;
 	Klink::Graphics::TextureID mCubeDiffuse;
-	Klink::Graphics::TextureID mCubeNormal;
 
 	AppLog mAppLog;
 };

@@ -49,6 +49,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shaders", "Shaders", "{3F0C
 		Assets\Shaders\Standard.fx = Assets\Shaders\Standard.fx
 		Assets\Shaders\Standard_backup.fx = Assets\Shaders\Standard_backup.fx
 		Assets\Shaders\Terrain.fx = Assets\Shaders\Terrain.fx
+		Assets\Shaders\TextureTerrain.fx = Assets\Shaders\TextureTerrain.fx
 		Assets\Shaders\Texturing.fx = Assets\Shaders\Texturing.fx
 		Assets\Shaders\TexturingOptions.fx = Assets\Shaders\TexturingOptions.fx
 	EndProjectSection
@@ -77,11 +78,6 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Input", "Framework\Input\Input.vcxproj", "{02DC0CE5-72DF-4F89-8AF2-FF9C0E351A1A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Solution Items", "_Solution Items", "{1CCF0725-BFF4-4F32-A012-07A16F155912}"
-	ProjectSection(SolutionItems) = preProject
-		Engine Improvement Notes.txt = Engine Improvement Notes.txt
-		Homework Week 6-7.txt = Homework Week 6-7.txt
-		special_member_functions.png = special_member_functions.png
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestApps", "TestApps", "{0ED3E306-C2AC-4DB4-93BA-615D7D2F2501}"
 EndProject

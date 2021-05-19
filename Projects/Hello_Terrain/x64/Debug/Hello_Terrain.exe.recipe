@@ -2,7 +2,7 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>C:\Klink\x64\Debug\Hello_Terrain.exe</FullPath>
+      <FullPath>C:\Projects\Klink\x64\Debug\Hello_Terrain.exe</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles />

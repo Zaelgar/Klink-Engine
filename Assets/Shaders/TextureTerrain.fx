@@ -1,7 +1,7 @@
 //====================================================================================================
-// Filename:	Terrain.fx
+// Filename:	TextureTerrain.fx
 // Created by:	Jaidon
-// Description:	Basic colour shader used to shade based on slope
+// Description:	Texture shader that uses height and slope values to sample different texture maps
 //====================================================================================================
 
 cbuffer TransformBuffer : register(b0)
@@ -30,15 +30,32 @@ cbuffer MaterialBuffer : register(b2)
 
 cbuffer OptionsBuffer : register(b3)
 {
-    float4 grassColour;
-    float4 rockColour;
-    float slopeThreshold;
+    float lowHeightLimit;
+    float3 padding0;
+    float lowSlopeThreshold;
     float3 padding1;
-    float blendAmount;
-    float3 padding;
+    float lowScaling;
+    float3 padding2;
+    float midHeightLimit;
+    float3 padding3;
+    float midSlopeThreshold;
+    float3 padding4;
+    float midScaling;
+    float3 padding5;
+    float highSlopeThreshold;
+    float3 padding6;
+    float highScaling;
+    float3 padding7;
 }
 
-Texture2D normalMap : register(t1);
+Texture2D lowAlbedo : register(t0);
+Texture2D lowNormal : register(t1);
+
+Texture2D midAlbedo : register(t2);
+Texture2D midNormal : register(t3);
+
+Texture2D highAlbedo : register(t4);
+Texture2D highNormal : register(t5);
 
 SamplerState textureSampler : register(s0);
 SamplerState depthMapSampler : register(s1);
@@ -61,6 +78,7 @@ struct VSOutput
     float3 dirToView : TEXCOORD1;
     float2 texCoord : TEXCOORD2;
     float4 position2 : TEXCOORD3;
+    float4 position3 : TEXCOORD4;
 };
 
 VSOutput VS(VSInput input)
@@ -81,14 +99,14 @@ VSOutput VS(VSInput input)
     output.dirToView = normalize(viewPosition.xyz - mul(input.position, world).xyz);
     output.texCoord = input.texCoord;
     output.position2 = mul(input.position, lightWvp);
+    output.position3 = input.position;
     return output;
 }
 
 float4 PS(VSOutput input) : SV_Target
-{	
-	// Get normal from texture and convert from [0, 1] to [-1, 1]
-    float3 sampledNormal = normalMap.Sample(textureSampler, input.texCoord).xyz;
-    float3 unpackedNormal = (sampledNormal * 2) - 1;
+{
+    // Get normal from texture and convert from [0, 1] to [-1, 1]
+    //float3 sampledNormal = normalMap.Sample(textureSampler, input.texCoord).xyz;
 	
 	// Fix normals from rasterizer and construct the tangent space matrix
     float3 n = normalize(input.normal);
@@ -96,6 +114,36 @@ float4 PS(VSOutput input) : SV_Target
     float3 t = normalize(input.tangent);
     float3x3 tbnw = float3x3(t, b, n);
     
+    
+    
+    
+    
+    float3 sampledNormal;
+    float4 diffuseMapColour;
+    float4 finalCol;
+    
+    if (input.position3.y <= lowHeightLimit) // moss
+    {
+        // Get normal from texture and convert from [0, 1] to [-1, 1]
+        sampledNormal = lowNormal.Sample(textureSampler, input.texCoord).xyz;
+        diffuseMapColour = lowAlbedo.Sample(textureSampler, input.texCoord);
+        //return finalCol = float4(1.f, 0.f, 0.f, 1.f);
+    }
+    else if (input.position3.y <= midHeightLimit) // rock
+    {
+        sampledNormal = midNormal.Sample(textureSampler, input.texCoord).xyz;
+        diffuseMapColour = midAlbedo.Sample(textureSampler, input.texCoord);
+        //return finalCol = float4(0.f, 1.f, 0.f, 1.f);
+    }
+    else
+    {
+        sampledNormal = highNormal.Sample(textureSampler, input.texCoord).xyz;
+        diffuseMapColour = highAlbedo.Sample(textureSampler, input.texCoord);
+        //return finalCol = float4(0.0f, 0.0f, 1.0f, 1.0f); // snow
+    }
+    
+    // ---------------------------------------------------
+    float3 unpackedNormal = (sampledNormal * 2) - 1;
     // True normal to use for lighting
     float3 normal = mul(unpackedNormal, tbnw);
     
@@ -105,18 +153,7 @@ float4 PS(VSOutput input) : SV_Target
     float diffuseIntensity = saturate(dot(normal, dirToLight));
     float4 diffuse = diffuseIntensity * lightDiffuse * materialDiffuse;
     
-    float4 finalColour;
+    finalCol = (ambient + diffuse) * diffuseMapColour;
     
-    //finalColour.xyz = normal.xyz;
-    //finalColour.w = 1.0f;
-    //return finalColour;
-    
-    //float slope = 1.0f - normal.y;
-    float slope = 1.0f - saturate(dot(normal, float3(0.f, 1.f, 0.f)));
-    float grassBlendHeight = slopeThreshold * (1.0f - blendAmount);
-    float grassWeight = 1.0f - saturate((slope - grassBlendHeight) / (slopeThreshold - grassBlendHeight));
-    float4 colour = grassColour * grassWeight + rockColour * (1.0f - grassWeight);
-    
-    finalColour = (ambient + diffuse) * colour;
-    return finalColour;
+    return finalCol;
 }

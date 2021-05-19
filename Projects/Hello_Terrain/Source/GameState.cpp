@@ -39,9 +39,16 @@ void GameState::Initialize()
 	mOptionsBuffer.Initialize();
 
 	// Textures
-	TextureManager::Get()->UseRootPath(false); // Avoiding the assets folder, just using the project folder. These paths below are accurate
-	mTerrainDiffuse = TextureManager::Get()->LoadTexture("uvtile.png");
-	mTerrainNormal = TextureManager::Get()->LoadTexture("plainnormal.jpg");
+	//TextureManager::Get()->UseRootPath(false); // Avoiding the assets folder, just using the project folder. These paths below are accurate
+	//Terrain/(DaylightBox)(RockCliff)(etc..)
+	mTerrainLowDiffuse = TextureManager::Get()->LoadTexture("Terrain/Moss/moss_albedo.tif");
+	mTerrainLowNormal = TextureManager::Get()->LoadTexture("Terrain/Moss/moss_normal.tif");
+
+	mTerrainMidDiffuse = TextureManager::Get()->LoadTexture("Terrain/RockCliff/rockcliff_albedo.tif");
+	mTerrainMidNormal = TextureManager::Get()->LoadTexture("Terrain/RockCliff/rockcliff_normal.tif");
+	
+	mTerrainHighDiffuse = TextureManager::Get()->LoadTexture("Terrain/Snow/snow_albedo.tif");
+	mTerrainHighNormal = TextureManager::Get()->LoadTexture("Terrain/Snow/snow_normal.tif");
 
 	Mesh cube = MeshBuilder::CreateCube(1.0f);
 	mCubeMesh.Initialize(cube);
@@ -115,11 +122,6 @@ void GameState::Update(float deltaTime)
 	{
 		ErodeTerrain(mIterationsPerUpdate);
 	}
-
-	//for (auto& v : mTerrainMesh.mVertices)
-	//{
-	//	SimpleDraw::DrawLine(v.position, v.position + v.normal * 0.2f, Colours::Cyan);
-	//}
 }
 
 void GameState::Render()
@@ -138,10 +140,18 @@ void GameState::Render()
 	mTransformBuffer.Set(transformData);
 
 	OptionsData optionsData;
-	optionsData.grassColour = mGrassColour;
-	optionsData.rockColour = mRockColour;
-	optionsData.grassThreshold = mGrassThreshold;
-	optionsData.blendingAmount = mBlendingAmount;
+
+	optionsData.lowHeightLimit = 0.3f * mHeightScale;
+	optionsData.lowScaling = 1.0f;
+	optionsData.lowSlopeThreshold = 0.2f;
+
+	optionsData.midHeightLimit = 0.7f * mHeightScale;
+	optionsData.midScaling = 1.0f;
+	optionsData.midSlopeThreshold = 0.2f;
+
+	optionsData.highScaling = 1.0f;
+	optionsData.highSlopeThreshold = 0.2f;
+
 	mOptionsBuffer.Set(optionsData);
 
 	if (mIsWireframe)
@@ -149,11 +159,19 @@ void GameState::Render()
 	else
 		RasterizerStateManager::Get()->GetRasterizerState("Solid")->Set();
 
-	ShaderManager::Get()->GetShader("TerrainShader")->Bind();
+	//ShaderManager::Get()->GetShader("TerrainShader")->Bind();
 	//ShaderManager::Get()->GetShader("StandardShader")->Bind();
+	ShaderManager::Get()->GetShader("TerrainTextureShader")->Bind();
 
-	TextureManager::Get()->GetTexture(mTerrainDiffuse)->BindPS(0);
-	TextureManager::Get()->GetTexture(mTerrainNormal)->BindPS(1);
+	TextureManager::Get()->GetTexture(mTerrainLowDiffuse)->BindPS(0);
+	TextureManager::Get()->GetTexture(mTerrainLowNormal)->BindPS(1);
+
+	TextureManager::Get()->GetTexture(mTerrainMidDiffuse)->BindPS(2);
+	TextureManager::Get()->GetTexture(mTerrainMidNormal)->BindPS(3);
+
+	TextureManager::Get()->GetTexture(mTerrainHighDiffuse)->BindPS(4);
+	TextureManager::Get()->GetTexture(mTerrainHighNormal)->BindPS(5);
+
 	SamplerManager::Get()->GetSampler("LinearWrap")->BindPS();
 
 
@@ -173,6 +191,10 @@ void GameState::Render()
 		mTerrainMeshBuffer.Bind();
 		mTerrainMeshBuffer.Render();
 	}
+
+	ShaderManager::Get()->GetShader("TextureShader")->Bind();
+
+
 
 	mCubeMesh.Bind();
 	mCubeMesh.Render();
