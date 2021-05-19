@@ -127,19 +127,16 @@ float4 PS(VSOutput input) : SV_Target
         // Get normal from texture and convert from [0, 1] to [-1, 1]
         sampledNormal = lowNormal.Sample(textureSampler, input.texCoord).xyz;
         diffuseMapColour = lowAlbedo.Sample(textureSampler, input.texCoord);
-        //return finalCol = float4(1.f, 0.f, 0.f, 1.f);
     }
     else if (input.position3.y <= midHeightLimit) // rock
     {
         sampledNormal = midNormal.Sample(textureSampler, input.texCoord).xyz;
         diffuseMapColour = midAlbedo.Sample(textureSampler, input.texCoord);
-        //return finalCol = float4(0.f, 1.f, 0.f, 1.f);
     }
     else
     {
         sampledNormal = highNormal.Sample(textureSampler, input.texCoord).xyz;
         diffuseMapColour = highAlbedo.Sample(textureSampler, input.texCoord);
-        //return finalCol = float4(0.0f, 0.0f, 1.0f, 1.0f); // snow
     }
     
     // ---------------------------------------------------

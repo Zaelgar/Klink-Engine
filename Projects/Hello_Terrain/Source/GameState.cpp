@@ -50,8 +50,12 @@ void GameState::Initialize()
 	mTerrainHighDiffuse = TextureManager::Get()->LoadTexture("Terrain/Snow/snow_albedo.tif");
 	mTerrainHighNormal = TextureManager::Get()->LoadTexture("Terrain/Snow/snow_normal.tif");
 
-	Mesh cube = MeshBuilder::CreateCube(1.0f);
-	mCubeMesh.Initialize(cube);
+
+	// Skybox
+	mSkyboxBuffer.Initialize();
+	BaseMesh<VertexPX> cube = MeshBuilder::CreateSkycube(1000.0f);
+	mSkyboxDiffuse = TextureManager::Get()->LoadTexture("Terrain/DaylightBox/DaylightBox_UV.png");
+	mSkyboxMeshBuffer.Initialize(cube);
 }
 
 void GameState::Terminate()
@@ -63,7 +67,7 @@ void GameState::Terminate()
 	mOptionsBuffer.Terminate();
 
 	mTerrainMeshBuffer.Terminate();
-	mCubeMesh.Terminate();
+	mSkyboxBuffer.Terminate();
 }
 
 void GameState::Update(float deltaTime)
@@ -192,12 +196,25 @@ void GameState::Render()
 		mTerrainMeshBuffer.Render();
 	}
 
+
+	// Skybox - Moves with camera
+	RasterizerStateManager::Get()->GetRasterizerState("CullFrontSolid")->Set();
 	ShaderManager::Get()->GetShader("TextureShader")->Bind();
 
+	TextureManager::Get()->GetTexture(mSkyboxDiffuse)->BindPS();
 
+	auto skyView = mCamera.GetViewMatrix();
+	auto skyProj = mCamera.GetPerspectiveMatrix();
+	auto skyWorld = Matrix4::Translation(mCamera.GetPosition());
 
-	mCubeMesh.Bind();
-	mCubeMesh.Render();
+	SkyboxData skyboxData;
+	skyboxData.wvp = Matrix4::Transpose(skyWorld * skyView * skyProj);
+
+	mSkyboxBuffer.Set(skyboxData);
+	mSkyboxBuffer.BindVS();
+
+	mSkyboxMeshBuffer.Bind();
+	mSkyboxMeshBuffer.Render();
 
 	SimpleDraw::DrawLine(Vector3::Zero(), mDirectionalLight.direction);
 	SimpleDraw::Render(mCamera);

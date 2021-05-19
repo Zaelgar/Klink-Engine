@@ -91,7 +91,7 @@ private:
 	Klink::Terrain::Erosion mErosion;
 	Klink::Terrain::Erosion::ErosionSettings mErosionSettings = {};
 
-	float mHeightScale = 6.0f;
+	float mHeightScale = 10.0f;
 	float mScale = 20.0f;
 
 	Colours::Colour mGrassColour = { 0.309f, 0.341f, 0.0f, 1.0f };
@@ -129,8 +129,8 @@ private:
 	};
 	using SkyboxBuffer = Klink::Graphics::TypedConstantBuffer<SkyboxData>;
 	SkyboxBuffer mSkyboxBuffer;
-	Klink::Graphics::MeshBuffer mCubeMesh;
-	Klink::Graphics::TextureID mCubeDiffuse;
+	Klink::Graphics::MeshBuffer mSkyboxMeshBuffer;
+	Klink::Graphics::TextureID mSkyboxDiffuse;
 
 	AppLog mAppLog;
 };

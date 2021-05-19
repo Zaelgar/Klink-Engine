@@ -1,10 +1,1 @@
-﻿  Precompiled.cpp
-  Datasets.cpp
-  GeneticAlgorithm.cpp
-  LinearRegression.cpp
-C:\Projects\Klink\Framework\MachineLearning\Src\LinearRegression.cpp(10,29): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Projects\Klink\Framework\MachineLearning\Src\LinearRegression.cpp(51,29): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-  LogisticRegression.cpp
-C:\Projects\Klink\Framework\MachineLearning\Src\LogisticRegression.cpp(14,13): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-  NeuralNetwork.cpp
-  ML.vcxproj -> C:\Projects\Klink\x64\Debug\ML.lib
+﻿

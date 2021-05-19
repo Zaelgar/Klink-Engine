@@ -613,6 +613,100 @@ BaseMesh<VertexPN> MeshBuilder::CreatePNSphere(float diameter, int xVertCount, i
 	return mesh;
 }
 
+BaseMesh<VertexPX> Klink::Graphics::MeshBuilder::CreateSkycube(float dimension)
+{
+	BaseMesh<VertexPX> mesh{};
+
+	dimension /= 2.0f;
+
+	// Push back mesh.mVertices of cube
+	{
+		mesh.mVertices.push_back({ {-dimension, dimension, dimension}, {0.251f, 0.3326f} });		// 0 top	0
+		mesh.mVertices.push_back({ {-dimension, dimension, dimension}, {0.249f, 0.334f} });		// 0 left	1
+		mesh.mVertices.push_back({ {-dimension, dimension, dimension}, {0.250f, 0.334f} });		// 0 back	2
+
+		mesh.mVertices.push_back({ {dimension, dimension, dimension}, {0.499f, 0.333f} });		// 1 top	3
+		mesh.mVertices.push_back({ {dimension, dimension, dimension}, {0.500f, 0.3337f} });		// 1 right	4
+		mesh.mVertices.push_back({ {dimension, dimension, dimension}, {0.499f, 0.333f} });		// 1 back	5
+
+		mesh.mVertices.push_back({ {-dimension, dimension, -dimension}, {0.251f, 0.000f} });	// 2 top	6
+		mesh.mVertices.push_back({ {-dimension, dimension, -dimension}, {0.000f, 0.334f} });	// 2 left	7
+		mesh.mVertices.push_back({ {-dimension, dimension, -dimension}, {1.000f, 0.334f} });	// 2 front	8
+
+		mesh.mVertices.push_back({ {dimension, dimension, -dimension}, {0.499f, 0.000f} });		// 3 top	9
+		mesh.mVertices.push_back({ {dimension, dimension, -dimension}, {0.751f, 0.334f} });		// 3 right	10
+		mesh.mVertices.push_back({ {dimension, dimension, -dimension}, {0.750f, 0.334f} });		// 3 front	11
+
+		mesh.mVertices.push_back({ {-dimension, -dimension, dimension}, {0.251f, 0.666f} });	// 4 bottom	12
+		mesh.mVertices.push_back({ {-dimension, -dimension, dimension}, {0.251f, 0.666f} });	// 4 left	13
+		mesh.mVertices.push_back({ {-dimension, -dimension, dimension}, {0.251f, 0.666f} });	// 4 back	14
+
+		mesh.mVertices.push_back({ {dimension, -dimension, dimension}, {0.499f, 0.666f} });		// 5 bottom	15
+		mesh.mVertices.push_back({ {dimension, -dimension, dimension}, {0.500f, 0.6654f} });	// 5 right	16
+		mesh.mVertices.push_back({ {dimension, -dimension, dimension}, {0.499f, 0.666f} });		// 5 back	17
+
+		mesh.mVertices.push_back({ {-dimension, -dimension, -dimension}, {0.251f, 1.000f} });	// 6 bottom	18
+		mesh.mVertices.push_back({ {-dimension, -dimension, -dimension}, {0.000f, 0.666f} });	// 6 left	19
+		mesh.mVertices.push_back({ {-dimension, -dimension, -dimension}, {1.000f, 0.666f} });	// 6 front	20
+
+		mesh.mVertices.push_back({ {dimension, -dimension, -dimension}, {0.499f, 1.000f} });	// 7 bottom	21
+		mesh.mVertices.push_back({ {dimension, -dimension, -dimension}, {0.750f, 0.666f} });	// 7 right	22
+		mesh.mVertices.push_back({ {dimension, -dimension, -dimension}, {0.751f, 0.666f} });	// 7 front	23
+	}
+	// Push back mesh.mIndices of cube
+	{
+		mesh.mIndices.push_back(0);
+		mesh.mIndices.push_back(3);
+		mesh.mIndices.push_back(6);
+
+		mesh.mIndices.push_back(3);
+		mesh.mIndices.push_back(9);
+		mesh.mIndices.push_back(6);
+
+		mesh.mIndices.push_back(10);
+		mesh.mIndices.push_back(4);
+		mesh.mIndices.push_back(22);
+
+		mesh.mIndices.push_back(4);
+		mesh.mIndices.push_back(16);
+		mesh.mIndices.push_back(22);
+
+		mesh.mIndices.push_back(8);
+		mesh.mIndices.push_back(11);
+		mesh.mIndices.push_back(20);
+
+		mesh.mIndices.push_back(11);
+		mesh.mIndices.push_back(23);
+		mesh.mIndices.push_back(20);
+
+		mesh.mIndices.push_back(1);
+		mesh.mIndices.push_back(7);
+		mesh.mIndices.push_back(13);
+
+		mesh.mIndices.push_back(7);
+		mesh.mIndices.push_back(19);
+		mesh.mIndices.push_back(13);
+
+		mesh.mIndices.push_back(5);
+		mesh.mIndices.push_back(2);
+		mesh.mIndices.push_back(14);
+
+		mesh.mIndices.push_back(5);
+		mesh.mIndices.push_back(14);
+		mesh.mIndices.push_back(17);
+
+		mesh.mIndices.push_back(21);
+		mesh.mIndices.push_back(15);
+		mesh.mIndices.push_back(12);
+
+		mesh.mIndices.push_back(18);
+		mesh.mIndices.push_back(21);
+		mesh.mIndices.push_back(12);
+	}
+
+	return mesh;
+}
+
 BaseMesh<Vertex> MeshBuilder::CreateSphere(float diameter, int xVertCount, int yVertCount)
 {
 	/*
@@ -1043,7 +1137,7 @@ void MeshBuilder::CalculateTangentsAndBinormals(BaseMesh<Vertex>& mesh)
 }
 
 void MeshBuilder::CalculateNormals(BaseMesh<Vertex>& mesh)
-{	 
+{
 	for (auto& vert : mesh.mVertices)
 	{
 		vert.normal = Vector3::Zero();
@@ -1056,13 +1150,13 @@ void MeshBuilder::CalculateNormals(BaseMesh<Vertex>& mesh)
 			mesh.mVertices[mesh.mIndices[index + 1]].position - mesh.mVertices[mesh.mIndices[index]].position,
 			mesh.mVertices[mesh.mIndices[index + 2]].position - mesh.mVertices[mesh.mIndices[index]].position
 		).Normalized();
-	
+
 		// Since we already have the face and the verts that make that face, we can simply add the normal to its current normals.
 		// We will normalize it in another loop below when all possible face normals are accounted for
 		mesh.mVertices[mesh.mIndices[index]].normal += faceNormal;
 		mesh.mVertices[mesh.mIndices[index + 1]].normal += faceNormal;
 		mesh.mVertices[mesh.mIndices[index + 2]].normal += faceNormal;
-	
+
 		index += 3;
 	}
 

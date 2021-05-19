@@ -1,7 +1,1 @@
-﻿  Object.cpp
-C:\Projects\Klink\Framework\Physics\Src\Object.cpp(92,34): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-  PhysicsWorld.cpp
-C:\Projects\Klink\Framework\Physics\Inc\PhysicsWorld.h(18,53): warning C4305: 'argument': truncation from 'double' to 'float'
-  Precompiled.cpp
-  Generating Code...
-  Physics.vcxproj -> C:\Projects\Klink\x64\Debug\Physics.lib
+﻿

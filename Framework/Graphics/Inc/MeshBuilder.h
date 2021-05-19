@@ -21,6 +21,8 @@ public:
 	static BaseMesh<VertexPNX> CreateUVNSphere(float diameter, int xVertCount, int yVertCount);
 	static BaseMesh<VertexPN> CreatePNSphere(float diameter, int xVertCount, int yVertCount);
 
+	static BaseMesh<VertexPX> CreateSkycube(float dimension);
+
 	static BaseMesh<Vertex> CreateSphere(float diameter, int xVertCount, int yVertCount);
 	static BaseMesh<Vertex> CreateCube(float dimension);
 	static BaseMesh<Vertex> CreateQuad(float xLength, float yLength);

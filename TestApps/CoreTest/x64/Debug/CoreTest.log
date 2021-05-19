@@ -1,8 +1,1 @@
-﻿  stdafx.cpp
-  BlockAllocatorTest.cpp
-  HandleTest.cpp
-  MetaTest.cpp
-c:\klink\testapps\coretest\metatest.cpp(35): error C2661: 'Klink::Core::Meta::MetaClass::MetaClass': no overloaded function takes 6 arguments
-c:\klink\testapps\coretest\metatest.cpp(41): error C2661: 'Klink::Core::Meta::MetaClass::MetaClass': no overloaded function takes 6 arguments
-  TypedAllocatorTest.cpp
-  Generating Code...
+﻿
