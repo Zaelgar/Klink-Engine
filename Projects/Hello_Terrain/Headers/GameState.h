@@ -18,10 +18,14 @@ public:
 	void Render() override;
 	void DebugUI() override;
 
+	void RenderScene();
+	void RenderDepthMap();
+
 private:
 
 	void BuildTerrain(int type);
 	void ErodeTerrain(int numIterations);
+	void ResetDayCycle();
 
 	Klink::Graphics::Camera mCamera;
 
@@ -59,11 +63,17 @@ private:
 		float padding5[3];
 
 		// High setting
-		float highSlopeThreshold;
+		float highHeightLimit;
 		float padding6[3];
 
-		float highScaling;      // UV Scaling factor for high texture
+		float highSlopeThreshold;
 		float padding7[3];
+
+		float highScaling;      // UV Scaling factor for high texture
+		float padding8[3];
+
+		float blendingAmount;
+		float padding9[3];
 	};
 	using OptionsBuffer = Klink::Graphics::TypedConstantBuffer<OptionsData>;
 	OptionsBuffer mOptionsBuffer;
@@ -94,10 +104,7 @@ private:
 	float mHeightScale = 10.0f;
 	float mScale = 20.0f;
 
-	Colours::Colour mGrassColour = { 0.309f, 0.341f, 0.0f, 1.0f };
-	Colours::Colour mRockColour = { 0.235f, 0.113f, 0.07f, 1.0f };
-	float mGrassThreshold = 0.18f;
-	float mBlendingAmount = 0.15f;
+	float mBlendingAmount = 0.1f;
 
 	// Debug and Settings
 	bool mCanRenderTerrain = false;
@@ -131,6 +138,30 @@ private:
 	SkyboxBuffer mSkyboxBuffer;
 	Klink::Graphics::MeshBuffer mSkyboxMeshBuffer;
 	Klink::Graphics::TextureID mSkyboxDiffuse;
+	
+	// Day cycle
+	struct SkyboxOptions
+	{
+		Klink::Graphics::Colours::Colour colourTint;
+	};
+
+	using SkyboxOptionsBuffer = Klink::Graphics::TypedConstantBuffer<SkyboxOptions>;
+	SkyboxOptionsBuffer mSkyboxOptionsBuffer;
+	float mTintPercent = 0.1f;
+	Klink::Graphics::Colours::Colour mTintColour = {};
+
+	bool mIsDayCycling = false;
+	float mDaySpeed = 0.1f;
+	float mValue = 0.0f;
+	Klink::Graphics::Colours::Colour mSunrise = {1.0f, 0.90f, 0.30f, 1.0f}; // more yellowy
+	Klink::Graphics::Colours::Colour mSunset = {1.0f, 0.66f, 0.2f, 1.0f}; // orangy
+	Klink::Graphics::Colours::Colour mDay = {1.0f, 1.0f, 1.0f, 1.0f}; // white
+
+	// Shadow Mapping
+	Klink::Graphics::Camera mLightCamera;
+
+	Klink::Graphics::TypedConstantBuffer<Matrix4> mDepthBuffer;
+	Klink::Graphics::RenderTarget mDepthTarget;
 
 	AppLog mAppLog;
 };

@@ -126,11 +126,10 @@ float4 PS(VSOutput input) : SV_Target
     
     float4 finalColour;
     //if(usesShadow && realDepth < recordedDepth)
-    /* SHADOW MAPPING V
+    // SHADOW MAPPING V
     if (realDepth - 0.00001f > recordedDepth)
         finalColour = ambient * diffuseMapColour;
     else
-*/
-	finalColour = (ambient + diffuse) * diffuseMapColour + (specular * specularMapColour.r);
+	    finalColour = (ambient + diffuse) * diffuseMapColour + (specular * specularMapColour.r);
     return finalColour;
 }

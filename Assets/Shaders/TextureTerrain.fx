@@ -36,16 +36,23 @@ cbuffer OptionsBuffer : register(b3)
     float3 padding1;
     float lowScaling;
     float3 padding2;
+    
     float midHeightLimit;
     float3 padding3;
     float midSlopeThreshold;
     float3 padding4;
     float midScaling;
     float3 padding5;
-    float highSlopeThreshold;
+    
+    float highHeightLimit;
     float3 padding6;
-    float highScaling;
+    float highSlopeThreshold;
     float3 padding7;
+    float highScaling;
+    float3 padding8;
+    
+    float blendingAmount;
+    float3 padding9;
 }
 
 Texture2D lowAlbedo : register(t0);
@@ -57,8 +64,16 @@ Texture2D midNormal : register(t3);
 Texture2D highAlbedo : register(t4);
 Texture2D highNormal : register(t5);
 
+Texture2D depthMap : register(t6);
+
 SamplerState textureSampler : register(s0);
 SamplerState depthMapSampler : register(s1);
+
+struct BlendingData
+{
+    float height;
+    float4 result;
+};
 
 struct VSInput
 {
@@ -104,40 +119,62 @@ VSOutput VS(VSInput input)
 }
 
 float4 PS(VSOutput input) : SV_Target
-{
-    // Get normal from texture and convert from [0, 1] to [-1, 1]
-    //float3 sampledNormal = normalMap.Sample(textureSampler, input.texCoord).xyz;
-	
+{	
 	// Fix normals from rasterizer and construct the tangent space matrix
     float3 n = normalize(input.normal);
     float3 b = normalize(input.binormal);
     float3 t = normalize(input.tangent);
     float3x3 tbnw = float3x3(t, b, n);
     
+    float3 lowSampledNormal;
+    float3 midSampledNormal;
+    float3 highSampledNormal;
     
+    float4 lowDiffuseMapColour;
+    float4 midDiffuseMapColour;
+    float4 highDiffuseMapColour;
     
+    float2 lowScaledUV;
+    float2 midScaledUV;
+    float2 highScaledUV;
     
+    // Low texture
+    lowScaledUV = mul(input.texCoord, lowScaling);
+    lowScaledUV = lowScaledUV % 1.0f;
+
+    lowSampledNormal = lowNormal.Sample(textureSampler, lowScaledUV).xyz;
+    lowDiffuseMapColour = lowAlbedo.Sample(textureSampler, lowScaledUV);
     
-    float3 sampledNormal;
-    float4 diffuseMapColour;
-    float4 finalCol;
+    // Mid
+    midScaledUV = mul(input.texCoord, midScaling);
+    midScaledUV = midScaledUV % 1.0f;
+        
+    midSampledNormal = midNormal.Sample(textureSampler, midScaledUV).xyz;
+    midDiffuseMapColour = midAlbedo.Sample(textureSampler, midScaledUV);
     
-    if (input.position3.y <= lowHeightLimit) // moss
+    // High
+    highScaledUV = mul(input.texCoord, highScaling);
+    highScaledUV = highScaledUV % 1.0f;
+        
+    highSampledNormal = highNormal.Sample(textureSampler, highScaledUV).xyz;
+    highDiffuseMapColour = highAlbedo.Sample(textureSampler, highScaledUV);
+    
+    float amount;
+    float4 finalDiffuseColour = lowDiffuseMapColour;
+    float3 sampledNormal = lowSampledNormal;
+    
+    if (input.position3.y > midHeightLimit)
     {
-        // Get normal from texture and convert from [0, 1] to [-1, 1]
-        sampledNormal = lowNormal.Sample(textureSampler, input.texCoord).xyz;
-        diffuseMapColour = lowAlbedo.Sample(textureSampler, input.texCoord);
-    }
-    else if (input.position3.y <= midHeightLimit) // rock
-    {
-        sampledNormal = midNormal.Sample(textureSampler, input.texCoord).xyz;
-        diffuseMapColour = midAlbedo.Sample(textureSampler, input.texCoord);
+        amount = clamp((input.position3.y - midHeightLimit) / (midHeightLimit * blendingAmount), 0.0f, 1.0f);
+        finalDiffuseColour = lerp(midDiffuseMapColour, highDiffuseMapColour, amount);
+        sampledNormal = lerp(midSampledNormal, highSampledNormal, amount);
     }
     else
     {
-        sampledNormal = highNormal.Sample(textureSampler, input.texCoord).xyz;
-        diffuseMapColour = highAlbedo.Sample(textureSampler, input.texCoord);
-    }
+        amount = clamp((input.position3.y - lowHeightLimit) / ((midHeightLimit - lowHeightLimit) * blendingAmount), 0.0f, 1.0f);
+        finalDiffuseColour = lerp(lowDiffuseMapColour, midDiffuseMapColour, amount);
+        sampledNormal = lerp(lowSampledNormal, midSampledNormal, amount);
+    }   
     
     // ---------------------------------------------------
     float3 unpackedNormal = (sampledNormal * 2) - 1;
@@ -150,7 +187,20 @@ float4 PS(VSOutput input) : SV_Target
     float diffuseIntensity = saturate(dot(normal, dirToLight));
     float4 diffuse = diffuseIntensity * lightDiffuse * materialDiffuse;
     
-    finalCol = (ambient + diffuse) * diffuseMapColour;
+    // Shadow Mapping
+    float realDepth = input.position2.z / input.position2.w;
+    float2 shadowUV = input.position2.xy / input.position2.w;
+    shadowUV = (shadowUV + 1.0f) * 0.5f;
+    shadowUV.y = 1.0f - shadowUV.y;
+    
+    float recordedDepth = depthMap.Sample(depthMapSampler, shadowUV).x;
+    
+    float4 finalCol;
+    
+    if (realDepth - 0.00001f > recordedDepth)
+        finalCol = ambient * finalDiffuseColour;
+    else    
+        finalCol = (ambient + diffuse) * finalDiffuseColour;
     
     return finalCol;
 }

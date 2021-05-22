@@ -38,6 +38,9 @@ void ShaderManager::Initialize()
 	AddShader("TerrainShader", Vertex::Format, "../../Assets/Shaders/Terrain.fx", "../../Assets/Shaders/Terrain.fx");
 	AddShader("TerrainTextureShader", Vertex::Format, "../../Assets/Shaders/TextureTerrain.fx", "../../Assets/Shaders/TextureTerrain.fx");
 
+	/// Skybox
+	AddShader("SkyboxShader", VertexPX::Format, "../../Assets/Shaders/Skybox.fx", "../../Assets/Shaders/Skybox.fx");
+
 	/// Visual Helper Shaders
 	AddShader("DepthMappingShader", Vertex::Format, "../../Assets/Shaders/DepthMapping.fx", "../../Assets/Shaders/DepthMapping.fx");
 

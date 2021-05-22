@@ -12,7 +12,7 @@ using namespace Klink::Terrain;
 
 void GameState::Initialize()
 {
-	GraphicsSystem::Get()->SetClearColour({0.25f, 0.25f, 0.25f});
+	GraphicsSystem::Get()->SetClearColour({ 0.25f, 0.25f, 0.25f });
 
 	// Member initialize
 	mCamera.SetPosition({ 0.0f, 15.0f, -30.0f });
@@ -28,6 +28,9 @@ void GameState::Initialize()
 	mDirectionalLight.direction = Normalize({ 0.0f, -1.0f, 1.0f });
 	mLightBuffer.Initialize(mDirectionalLight);
 
+	mLightCamera.SetPosition(-mDirectionalLight.direction * 50.0f);
+	mLightCamera.SetDirection(mDirectionalLight.direction);
+
 	// Material Buffer
 	mMaterial.ambient = { 0.25f, 0.25f, 0.25f, 1.0f };
 	mMaterial.diffuse = { 1.0f, 1.0f, 1.0f, 1.0f };
@@ -37,16 +40,17 @@ void GameState::Initialize()
 
 	// Options Buffer
 	mOptionsBuffer.Initialize();
+	mSkyboxOptionsBuffer.Initialize();
 
 	// Textures
-	//TextureManager::Get()->UseRootPath(false); // Avoiding the assets folder, just using the project folder. These paths below are accurate
+
 	//Terrain/(DaylightBox)(RockCliff)(etc..)
 	mTerrainLowDiffuse = TextureManager::Get()->LoadTexture("Terrain/Moss/moss_albedo.tif");
 	mTerrainLowNormal = TextureManager::Get()->LoadTexture("Terrain/Moss/moss_normal.tif");
 
 	mTerrainMidDiffuse = TextureManager::Get()->LoadTexture("Terrain/RockCliff/rockcliff_albedo.tif");
 	mTerrainMidNormal = TextureManager::Get()->LoadTexture("Terrain/RockCliff/rockcliff_normal.tif");
-	
+
 	mTerrainHighDiffuse = TextureManager::Get()->LoadTexture("Terrain/Snow/snow_albedo.tif");
 	mTerrainHighNormal = TextureManager::Get()->LoadTexture("Terrain/Snow/snow_normal.tif");
 
@@ -56,6 +60,12 @@ void GameState::Initialize()
 	BaseMesh<VertexPX> cube = MeshBuilder::CreateSkycube(1000.0f);
 	mSkyboxDiffuse = TextureManager::Get()->LoadTexture("Terrain/DaylightBox/DaylightBox_UV.png");
 	mSkyboxMeshBuffer.Initialize(cube);
+
+	// Shadow Mapping
+	mDepthBuffer.Initialize();
+
+	constexpr uint32_t shadowMapSize = 4096;
+	mDepthTarget.Initialize(shadowMapSize, shadowMapSize, RenderTarget::Format::RGBA_F32);
 }
 
 void GameState::Terminate()
@@ -68,11 +78,14 @@ void GameState::Terminate()
 
 	mTerrainMeshBuffer.Terminate();
 	mSkyboxBuffer.Terminate();
+
+	mDepthBuffer.Terminate();
+	mDepthTarget.Terminate();
 }
 
 void GameState::Update(float deltaTime)
 {
-	#pragma region Input
+#pragma region Input
 	{
 		auto inputSystem = InputSystem::Get();
 
@@ -126,9 +139,52 @@ void GameState::Update(float deltaTime)
 	{
 		ErodeTerrain(mIterationsPerUpdate);
 	}
+
+	if (mIsDayCycling)
+	{
+		mValue += deltaTime * mDaySpeed;
+		float t = sin(mValue);
+
+		mDirectionalLight.diffuse = Lerp(mSunrise, mDay, t);
+		mDirectionalLight.direction = Lerp(Vector3{0.f,-1.0f,1.0f}, Vector3{0.f, -1.0f, 0.0f}, t);
+	}
 }
 
 void GameState::Render()
+{
+	mDepthTarget.BeginRender(Colours::White);
+	RenderDepthMap();
+	mDepthTarget.EndRender();
+
+	RenderScene();
+}
+
+void GameState::RenderDepthMap()
+{
+	// Math first
+	Matrix4 view;
+	Matrix4 proj;
+	view = mLightCamera.GetViewMatrix();
+	proj = mLightCamera.GetPerspectiveMatrix();
+
+	/// Render Terrain
+	auto terrainWorld = Matrix4::Translation(mTerrainPosition);
+
+	ShaderManager::Get()->GetShader("DepthMappingShader")->Bind();
+	SamplerManager::Get()->GetSampler("PointClamp")->BindPS();
+
+	// Just throwing a new buffer up if we use depthmapping
+	// TransformBuffer r(0)
+	// matrix wvp
+	Matrix4 wvp;
+	wvp = Matrix4::Transpose(terrainWorld * view * proj);
+	mDepthBuffer.Set(wvp);
+	mDepthBuffer.BindVS(0);
+
+	mTerrainMeshBuffer.Render();
+}
+
+void GameState::RenderScene()
 {
 	auto view = mCamera.GetViewMatrix();
 	auto proj = mCamera.GetPerspectiveMatrix();
@@ -145,16 +201,19 @@ void GameState::Render()
 
 	OptionsData optionsData;
 
-	optionsData.lowHeightLimit = 0.3f * mHeightScale;
-	optionsData.lowScaling = 1.0f;
+	optionsData.lowHeightLimit = 0.4f * mHeightScale;
+	optionsData.lowScaling = 10.0f;
 	optionsData.lowSlopeThreshold = 0.2f;
 
 	optionsData.midHeightLimit = 0.7f * mHeightScale;
-	optionsData.midScaling = 1.0f;
+	optionsData.midScaling = 10.0f;
 	optionsData.midSlopeThreshold = 0.2f;
 
-	optionsData.highScaling = 1.0f;
+	optionsData.highHeightLimit = mHeightScale;
+	optionsData.highScaling = 10.0f;
 	optionsData.highSlopeThreshold = 0.2f;
+
+	optionsData.blendingAmount = mBlendingAmount;
 
 	mOptionsBuffer.Set(optionsData);
 
@@ -176,11 +235,17 @@ void GameState::Render()
 	TextureManager::Get()->GetTexture(mTerrainHighDiffuse)->BindPS(4);
 	TextureManager::Get()->GetTexture(mTerrainHighNormal)->BindPS(5);
 
+	mDepthTarget.BindPS(6);
+
 	SamplerManager::Get()->GetSampler("LinearWrap")->BindPS();
+	SamplerManager::Get()->GetSampler("PointClamp")->BindPS(1);
 
 
 	mTransformBuffer.BindVS(0);
 	mTransformBuffer.BindPS(0);
+
+	mDirectionalLight.direction.Normalize();
+	mLightBuffer.Set(mDirectionalLight);
 
 	mLightBuffer.BindVS(1);
 	mLightBuffer.BindPS(1);
@@ -199,7 +264,7 @@ void GameState::Render()
 
 	// Skybox - Moves with camera
 	RasterizerStateManager::Get()->GetRasterizerState("CullFrontSolid")->Set();
-	ShaderManager::Get()->GetShader("TextureShader")->Bind();
+	ShaderManager::Get()->GetShader("SkyboxShader")->Bind();
 
 	TextureManager::Get()->GetTexture(mSkyboxDiffuse)->BindPS();
 
@@ -212,6 +277,12 @@ void GameState::Render()
 
 	mSkyboxBuffer.Set(skyboxData);
 	mSkyboxBuffer.BindVS();
+
+	SkyboxOptions skyboxOptions;
+	skyboxOptions.colourTint = mDirectionalLight.diffuse;
+
+	mSkyboxOptionsBuffer.Set(skyboxOptions);
+	mSkyboxOptionsBuffer.BindPS(1);
 
 	mSkyboxMeshBuffer.Bind();
 	mSkyboxMeshBuffer.Render();
@@ -268,14 +339,19 @@ void GameState::DebugUI()
 	{
 		ImGui::Checkbox("Wireframe", &mIsWireframe);
 		ImGui::DragFloat3("Terrain Position", &mTerrainPosition.x);
-		ImGui::ColorEdit4("Grass Colour", &mGrassColour.x);
-		ImGui::ColorEdit4("Rock Colour", &mRockColour.x);
-		ImGui::DragFloat("Grass Threshold", &mGrassThreshold, 0.01f, 0.0f, 1.0f);
+		ImGui::DragFloat3("Light Rotation", &mDirectionalLight.direction.x, 0.1f, -1.00f, 1.0f);
 		ImGui::DragFloat("Blending Amount", &mBlendingAmount, 0.01f, 0.0f, 1.0f);
+		ImGui::Checkbox("Day Cycle Visualise", &mIsDayCycling);
+		ImGui::DragFloat("Skybox Tint Percent", &mTintPercent, 0.01f, 0.0f, 1.0f);
+		ImGui::DragFloat("mValue", &mValue, 0.01f, 0.0f, 1.0f);
+		if (ImGui::Button("Reset Day Cycle"))
+		{
+			ResetDayCycle();
+		}
 	}
 
-	mAppLog.Draw("Console");
-
+	//mAppLog.Draw("Console");
+	ImGui::Image(mDepthTarget.GetShaderResourceView(), { 200.0f, 200.0f });
 	ImGui::End();
 }
 
@@ -325,4 +401,14 @@ void GameState::ErodeTerrain(int numIterations)
 	MeshBuilder::CalculateTangents(mTerrainMesh);
 
 	mTerrainMeshBuffer.Update(mTerrainMesh.mVertices.size(), static_cast<void*>(mTerrainMesh.mVertices.data()));
+}
+
+void GameState::ResetDayCycle()
+{
+	mValue = 0;
+
+	mDirectionalLight.diffuse = mSunrise;
+	mDirectionalLight.direction = Normalize({ 0.0f, -1.0f, 1.0f });
+	mTintColour = mSunrise;
+	mTintPercent = 0.1f;
 }

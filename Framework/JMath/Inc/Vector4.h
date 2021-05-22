@@ -150,6 +150,12 @@ struct Vector4
 
 		));
 	}
+	static inline Vector4 Lerp(const Vector4& v0, const Vector4& v1, float t)
+	{
+		Vector4 l = v1 - v0;
+		l *= t;
+		return v0 + l;
+	}
 
 }; // namespace Klink::JMath
 #endif // INCLUDED_KLINK_JMATH_VECTOR4_H

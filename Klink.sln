@@ -46,6 +46,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shaders", "Shaders", "{3F0C
 		Assets\Shaders\PostProcessing.fx = Assets\Shaders\PostProcessing.fx
 		Assets\Shaders\SimpleDraw.fx = Assets\Shaders\SimpleDraw.fx
 		Assets\Shaders\Skinning.fx = Assets\Shaders\Skinning.fx
+		Assets\Shaders\Skybox.fx = Assets\Shaders\Skybox.fx
 		Assets\Shaders\Standard.fx = Assets\Shaders\Standard.fx
 		Assets\Shaders\Standard_backup.fx = Assets\Shaders\Standard_backup.fx
 		Assets\Shaders\Terrain.fx = Assets\Shaders\Terrain.fx

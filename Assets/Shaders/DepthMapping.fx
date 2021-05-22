@@ -40,5 +40,6 @@ VS_OUTPUT VS(VS_INPUT input)
 float4 PS(VS_OUTPUT input) : SV_Target
 {
     float depth = input.position2.z / input.position2.w;
-    return float4(depth, depth, depth, 1.0f);
+    //return float4(depth, depth, depth, 1.0f);
+    return float4(1.0f, 0.0f, 0.0f, 1.0f);
 }
