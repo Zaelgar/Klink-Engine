@@ -22,7 +22,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{BF9E70EF-5C24-4E9B-B442-2E914025CC99}</ProjectGuid>
     <RootNamespace>HelloSteering</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -119,11 +119,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Klink\Klink.vcxproj">
-      <Project>{6d600040-99a3-46cf-ac0d-32141d5b632e}</Project>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="Fish.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="Shark.cpp" />
@@ -133,6 +128,11 @@
     <ClInclude Include="Fish.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="Shark.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Engine\Klink\Klink.vcxproj">
+      <Project>{6d600040-99a3-46cf-ac0d-32141d5b632e}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

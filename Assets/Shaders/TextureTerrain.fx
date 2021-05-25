@@ -53,6 +53,12 @@ cbuffer OptionsBuffer : register(b3)
     
     float blendingAmount;
     float3 padding9;
+    
+    float sinFactor;
+    float3 padding10;
+    
+    float snowHeightFactor;
+    float3 padding11;
 }
 
 Texture2D lowAlbedo : register(t0);
@@ -163,13 +169,24 @@ float4 PS(VSOutput input) : SV_Target
     float4 finalDiffuseColour = lowDiffuseMapColour;
     float3 sampledNormal = lowSampledNormal;
     
-    if (input.position3.y > midHeightLimit)
+    float snowHeightOffset = (sin(sinFactor * input.position3.x) * snowHeightFactor); // change snow height based on a sinwave using the x position of the vertex in local space.
+    
+    float inputPosition = input.position3.y - snowHeightOffset;
+    float midHeight = midHeightLimit - snowHeightOffset;
+    
+    if (inputPosition > midHeight)
     {
-        amount = clamp((input.position3.y - midHeightLimit) / (midHeightLimit * blendingAmount), 0.0f, 1.0f);
+        amount = clamp((inputPosition - midHeight) / (midHeight * blendingAmount), 0.0f, 1.0f);
         finalDiffuseColour = lerp(midDiffuseMapColour, highDiffuseMapColour, amount);
         sampledNormal = lerp(midSampledNormal, highSampledNormal, amount);
     }
-    else
+    //if (input.position3.y > midHeightLimit)
+    //{
+    //    amount = clamp((input.position3.y - midHeightLimit) / (midHeightLimit * blendingAmount), 0.0f, 1.0f);
+    //    finalDiffuseColour = lerp(midDiffuseMapColour, highDiffuseMapColour, amount);
+    //    sampledNormal = lerp(midSampledNormal, highSampledNormal, amount);
+    //}
+    else // TODO - use slope based rendering for moss and stone
     {
         amount = clamp((input.position3.y - lowHeightLimit) / ((midHeightLimit - lowHeightLimit) * blendingAmount), 0.0f, 1.0f);
         finalDiffuseColour = lerp(lowDiffuseMapColour, midDiffuseMapColour, amount);

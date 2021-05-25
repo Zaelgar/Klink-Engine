@@ -92,7 +92,7 @@ public:
 
 //TODO - Entity Class
 // ENTITY CLASS is inherited by agent
-// constains position and entity id static member
+// contains position and entity id static member
 // Entity()
 // :(entityID++)
 //{}

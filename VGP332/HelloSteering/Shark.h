@@ -1,6 +1,8 @@
 #ifndef INCLUDED_HELLOSTEERING_SHARK_H
 #define INCLUDED_HELLOSTEERING_SHARK_H
 
+#include <AI\Inc\Agent.h>
+
 class Shark : public Agent2D
 {
 public:

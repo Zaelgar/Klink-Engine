@@ -74,9 +74,18 @@ private:
 
 		float blendingAmount;
 		float padding9[3];
+
+		float sinFactor = 0.3f;
+		float padding10[3];
+
+		float snowHeightFactor = 1.0f;
+		float padding11[3];
 	};
 	using OptionsBuffer = Klink::Graphics::TypedConstantBuffer<OptionsData>;
 	OptionsBuffer mOptionsBuffer;
+
+	float mSinFactor = 0.3f;
+	float mSnowHeightFactor = 1.0f;
 
 	// Lights
 	Klink::Graphics::DirectionalLight mDirectionalLight;
@@ -108,7 +117,7 @@ private:
 
 	// Debug and Settings
 	bool mCanRenderTerrain = false;
-	int mNumErosionIterations = 70000;
+	int mNumErosionIterations = 100000;
 
 	bool mIsWireframe = false;
 	Vector3 mTerrainPosition = Vector3::Zero();
@@ -152,7 +161,7 @@ private:
 
 	bool mIsDayCycling = false;
 	float mDaySpeed = 0.1f;
-	float mValue = 0.0f;
+	float mDayTimeValue = 0.0f;
 	Klink::Graphics::Colours::Colour mSunrise = {1.0f, 0.90f, 0.30f, 1.0f}; // more yellowy
 	Klink::Graphics::Colours::Colour mSunset = {1.0f, 0.66f, 0.2f, 1.0f}; // orangy
 	Klink::Graphics::Colours::Colour mDay = {1.0f, 1.0f, 1.0f, 1.0f}; // white

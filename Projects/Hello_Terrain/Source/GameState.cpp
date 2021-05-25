@@ -28,7 +28,7 @@ void GameState::Initialize()
 	mDirectionalLight.direction = Normalize({ 0.0f, -1.0f, 1.0f });
 	mLightBuffer.Initialize(mDirectionalLight);
 
-	mLightCamera.SetPosition(-mDirectionalLight.direction * 50.0f);
+	mLightCamera.SetPosition(-mDirectionalLight.direction * 40.0f);
 	mLightCamera.SetDirection(mDirectionalLight.direction);
 
 	// Material Buffer
@@ -142,12 +142,14 @@ void GameState::Update(float deltaTime)
 
 	if (mIsDayCycling)
 	{
-		mValue += deltaTime * mDaySpeed;
-		float t = sin(mValue);
+		mDayTimeValue += deltaTime * mDaySpeed;
+		float t = sin(mDayTimeValue);
 
 		mDirectionalLight.diffuse = Lerp(mSunrise, mDay, t);
 		mDirectionalLight.direction = Lerp(Vector3{0.f,-1.0f,1.0f}, Vector3{0.f, -1.0f, 0.0f}, t);
 	}
+
+	mLightCamera.SetDirection(mDirectionalLight.direction);
 }
 
 void GameState::Render()
@@ -201,7 +203,7 @@ void GameState::RenderScene()
 
 	OptionsData optionsData;
 
-	optionsData.lowHeightLimit = 0.4f * mHeightScale;
+	optionsData.lowHeightLimit = 0.3f * mHeightScale;
 	optionsData.lowScaling = 10.0f;
 	optionsData.lowSlopeThreshold = 0.2f;
 
@@ -214,6 +216,8 @@ void GameState::RenderScene()
 	optionsData.highSlopeThreshold = 0.2f;
 
 	optionsData.blendingAmount = mBlendingAmount;
+	optionsData.sinFactor = mSinFactor;
+	optionsData.snowHeightFactor = mSnowHeightFactor;
 
 	mOptionsBuffer.Set(optionsData);
 
@@ -287,6 +291,8 @@ void GameState::RenderScene()
 	mSkyboxMeshBuffer.Bind();
 	mSkyboxMeshBuffer.Render();
 
+	SimpleDraw::DrawSphere(mLightCamera.GetPosition(), 3.0f);
+
 	SimpleDraw::DrawLine(Vector3::Zero(), mDirectionalLight.direction);
 	SimpleDraw::Render(mCamera);
 }
@@ -343,7 +349,9 @@ void GameState::DebugUI()
 		ImGui::DragFloat("Blending Amount", &mBlendingAmount, 0.01f, 0.0f, 1.0f);
 		ImGui::Checkbox("Day Cycle Visualise", &mIsDayCycling);
 		ImGui::DragFloat("Skybox Tint Percent", &mTintPercent, 0.01f, 0.0f, 1.0f);
-		ImGui::DragFloat("mValue", &mValue, 0.01f, 0.0f, 1.0f);
+		ImGui::DragFloat("Day time value", &mDayTimeValue, 0.01f, 0.0f, 1.0f);
+		ImGui::DragFloat("Sine factor", &mSinFactor, 0.1f, 0.01f, 5.0f);
+		ImGui::DragFloat("Sine snow height factor", &mSnowHeightFactor, 0.1f, -10.0f, 10.0f);
 		if (ImGui::Button("Reset Day Cycle"))
 		{
 			ResetDayCycle();
@@ -405,10 +413,10 @@ void GameState::ErodeTerrain(int numIterations)
 
 void GameState::ResetDayCycle()
 {
-	mValue = 0;
+	mDayTimeValue = 0;
 
-	mDirectionalLight.diffuse = mSunrise;
+	mDirectionalLight.diffuse = mDay;
 	mDirectionalLight.direction = Normalize({ 0.0f, -1.0f, 1.0f });
-	mTintColour = mSunrise;
+	mTintColour = mDay;
 	mTintPercent = 0.1f;
 }
