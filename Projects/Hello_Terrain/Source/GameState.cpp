@@ -158,6 +158,19 @@ void GameState::Render()
 	RenderDepthMap();
 	mDepthTarget.EndRender();
 
+	Vector3 pos;
+	Vector3 norm;
+	if (mIsRenderingNormals)
+	{
+		for (int i = 0; i < mTerrainMesh.mVertices.size(); i += 15)
+		{
+			pos = mTerrainMesh.mVertices[i].position;
+			norm = mTerrainMesh.mVertices[i].normal + pos;
+
+			SimpleDraw::DrawLine(pos, norm);
+		}
+	}
+
 	RenderScene();
 }
 
@@ -207,7 +220,7 @@ void GameState::RenderScene()
 	optionsData.lowScaling = 10.0f;
 	optionsData.lowSlopeThreshold = 0.2f;
 
-	optionsData.midHeightLimit = 0.7f * mHeightScale;
+	optionsData.midHeightLimit = 0.6f * mHeightScale;
 	optionsData.midScaling = 10.0f;
 	optionsData.midSlopeThreshold = 0.2f;
 
@@ -291,28 +304,20 @@ void GameState::RenderScene()
 	mSkyboxMeshBuffer.Bind();
 	mSkyboxMeshBuffer.Render();
 
-	SimpleDraw::DrawSphere(mLightCamera.GetPosition(), 3.0f);
-
-	SimpleDraw::DrawLine(Vector3::Zero(), mDirectionalLight.direction);
 	SimpleDraw::Render(mCamera);
 }
 
 void GameState::DebugUI()
 {
 	ImGui::Begin("Settings", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
-	if (ImGui::CollapsingHeader("Terrain Settings"), true)
+	if (ImGui::CollapsingHeader("Terrain Settings"))
 	{
 		ImGui::DragFloat("Height Scale", &mHeightScale, 0.1f, 1.0f, 100.0f);
 		ImGui::DragFloat("Size Scale", &mScale, 0.1f, 1.0f, 100.0f);
-		ImGui::DragInt("Map Image To Load", &mMapType, 1, 1, 5);
-
-		if (ImGui::Button("Build New Terrain"))
-		{
-			BuildTerrain(mMapType);
-		}
+		ImGui::DragInt("Map Image To Load", &mMapType, 1, 1, 6);
 	}
 
-	if (ImGui::CollapsingHeader("Erosion Settings", true))
+	if (ImGui::CollapsingHeader("Erosion Settings"))
 	{
 		ImGui::DragInt("Iterations", &mNumErosionIterations, 100.0f, 1, 100000);
 		ImGui::DragInt("Erosion Radius", &mErosionSettings.erosionRadius, 1, 2, 8);
@@ -326,10 +331,6 @@ void GameState::DebugUI()
 		ImGui::DragInt("Max Droplet Iterations", &mErosionSettings.maxDropletLifetime, 1, 5, 50);
 		ImGui::DragFloat("Initial Droplet Volume", &mErosionSettings.initialWaterVolume, 0.1f, 0.1f, 5.0f);
 		ImGui::DragFloat("Initial Speed", &mErosionSettings.initialSpeed, 0.1f, 0.1f, 30.0f);
-		if (ImGui::Button("Erode Terrain") && mCanRenderTerrain)
-		{
-			ErodeTerrain(mNumErosionIterations);
-		}
 	}
 
 	if (ImGui::CollapsingHeader("Visualization Settings"))
@@ -341,9 +342,10 @@ void GameState::DebugUI()
 		}
 	}
 
-	if (ImGui::CollapsingHeader("Terrain Render Settings", true))
+	if (ImGui::CollapsingHeader("Terrain Render Settings"))
 	{
 		ImGui::Checkbox("Wireframe", &mIsWireframe);
+		ImGui::Checkbox("Draw Normals", &mIsRenderingNormals);
 		ImGui::DragFloat3("Terrain Position", &mTerrainPosition.x);
 		ImGui::DragFloat3("Light Rotation", &mDirectionalLight.direction.x, 0.1f, -1.00f, 1.0f);
 		ImGui::DragFloat("Blending Amount", &mBlendingAmount, 0.01f, 0.0f, 1.0f);
@@ -358,8 +360,18 @@ void GameState::DebugUI()
 		}
 	}
 
+	if (ImGui::Button("Build New Terrain"))
+	{
+		BuildTerrain(mMapType);
+	}
+
+	if (ImGui::Button("Erode Terrain") && mCanRenderTerrain)
+	{
+		ErodeTerrain(mNumErosionIterations);
+	}
+
 	//mAppLog.Draw("Console");
-	ImGui::Image(mDepthTarget.GetShaderResourceView(), { 200.0f, 200.0f });
+	//ImGui::Image(mDepthTarget.GetShaderResourceView(), { 200.0f, 200.0f });
 	ImGui::End();
 }
 
@@ -372,7 +384,7 @@ void GameState::BuildTerrain(int type)
 	switch (type)
 	{
 	case 1:
-		mFilename = "heightmap.png";
+		mFilename = "newHeightmap.png";
 		break;
 	case 2:
 		mFilename = "ripple.png";
@@ -385,6 +397,9 @@ void GameState::BuildTerrain(int type)
 		break;
 	case 5:
 		mFilename = "bubble.png";
+		break;
+	case 6:
+		mFilename = "heightmap.png";
 		break;
 	}
 

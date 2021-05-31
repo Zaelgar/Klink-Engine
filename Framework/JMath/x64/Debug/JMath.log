@@ -1,1 +1,6 @@
-﻿
+﻿  JMath.cpp
+C:\Projects\Klink\Framework\JMath\Src\JMath.cpp(156,32): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Projects\Klink\Framework\JMath\Src\JMath.cpp(157,32): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  MetaRegistration.cpp
+  Precompiled.cpp
+  JMath.vcxproj -> C:\Projects\Klink\x64\Debug\JMath.lib

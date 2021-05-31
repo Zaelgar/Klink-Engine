@@ -1,1 +1,15 @@
-﻿
+﻿  Precompiled.cpp
+C:\Projects\Klink\Framework\Physics\Inc\PhysicsWorld.h(18,53): warning C4305: 'argument': truncation from 'double' to 'float'
+  App.cpp
+  ColliderComponent.cpp
+  Component.cpp
+  Editor.cpp
+  GameObject.cpp
+  GameObjectFactory.cpp
+  Klink.cpp
+  MetaRegistration.cpp
+  Service.cpp
+  TransformComponent.cpp
+  World.cpp
+  Generating Code...
+  Klink.vcxproj -> C:\Projects\Klink\x64\Debug\Klink.lib

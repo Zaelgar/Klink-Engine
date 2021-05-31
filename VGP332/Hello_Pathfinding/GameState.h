@@ -44,6 +44,8 @@ private:
 
 	Timer loopTimer;
 
+	float mDeltaTime = 0.0f;
+
 	bool done = false;
 	// Last time, on upgrading AI...
 	// Converting old format (WinMain Copy.cpp) to new format (Winmain.cpp)

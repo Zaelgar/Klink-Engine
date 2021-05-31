@@ -1,1 +1,44 @@
-﻿
+﻿  Precompiled.cpp
+  Animation.cpp
+  AnimationBuilder.cpp
+  Animator.cpp
+  BlendState.cpp
+  BlendStateManager.cpp
+  MeshIO.cpp
+C:\Projects\Klink\Framework\Graphics\Src\MeshIO.cpp(111,44): warning C4018: '<': signed/unsigned mismatch
+C:\Projects\Klink\Framework\Graphics\Src\MeshIO.cpp(134,40): warning C4018: '<': signed/unsigned mismatch
+C:\Projects\Klink\Framework\Graphics\Src\MeshIO.cpp(193,36): warning C4018: '<': signed/unsigned mismatch
+  Model.cpp
+  RasterizerState.cpp
+  RasterizerStateManager.cpp
+  RenderTarget.cpp
+  SamplerManager.cpp
+  D3DUtilities.cpp
+  ShaderManager.cpp
+  Skeleton.cpp
+  Sprite.cpp
+  SpriteRenderer.cpp
+  Camera.cpp
+  ConstantBuffer.cpp
+  DebugUI.cpp
+  GraphicsSystem.cpp
+  Generating Code...
+  Compiling...
+  MeshBuffer.cpp
+  MeshBuilder.cpp
+C:\Projects\Klink\Framework\Graphics\Src\MeshBuilder.cpp(992,37): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Projects\Klink\Framework\Graphics\Src\MeshBuilder.cpp(1178,37): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Projects\Klink\Framework\Graphics\Src\MeshBuilder.cpp(1172,16): warning C4101: 'currentFace': unreferenced local variable
+C:\Projects\Klink\Framework\Graphics\Src\MeshBuilder.cpp(1190,9): warning C4101: 'length': unreferenced local variable
+  PixelShader.cpp
+  Sampler.cpp
+  SimpleDraw.cpp
+C:\Projects\Klink\Framework\Graphics\Src\SimpleDraw.cpp(390,30): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Projects\Klink\Framework\Graphics\Src\SimpleDraw.cpp(392,30): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Projects\Klink\Framework\Graphics\Src\SimpleDraw.cpp(400,29): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Projects\Klink\Framework\Graphics\Src\SimpleDraw.cpp(402,29): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  Texture.cpp
+  TextureManager.cpp
+  VertexShader.cpp
+  Generating Code...
+  Graphics.vcxproj -> C:\Projects\Klink\x64\Debug\Graphics.lib

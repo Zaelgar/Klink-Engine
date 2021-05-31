@@ -38,49 +38,61 @@ void GameState::Initialize()
 
 void GameState::Terminate()
 {
-	
+
 }
 
 void GameState::Update(float deltaTime)
 {
+	#pragma region Input System
+	auto inputSystem = InputSystem::Get();
+
+	if (inputSystem->IsKeyPressed(KeyCode::ESCAPE))
 	{
-		auto inputSystem = InputSystem::Get();
-
-		if (inputSystem->IsKeyPressed(KeyCode::ESCAPE))
-		{
-			KlinkApp::Shutdown();
-			return;
-		}
-
-		float moveSpeed = 15.0f;
-		const float turnSpeed = 15.0f;
-		if (inputSystem->IsKeyDown(KeyCode::LSHIFT))
-			moveSpeed = 30.0f;
-		else
-			moveSpeed = 15.0f;
-		if (inputSystem->IsKeyDown(KeyCode::W))
-			mCamera.Walk(moveSpeed * deltaTime);
-		if (inputSystem->IsKeyDown(KeyCode::A))
-			mCamera.Strafe(-moveSpeed * deltaTime);
-		if (inputSystem->IsKeyDown(KeyCode::S))
-			mCamera.Walk(-moveSpeed * deltaTime);
-		if (inputSystem->IsKeyDown(KeyCode::D))
-			mCamera.Strafe(moveSpeed * deltaTime);
-		if (inputSystem->IsKeyDown(KeyCode::Q))
-			mCamera.Rise(moveSpeed * deltaTime);
-		if (inputSystem->IsKeyDown(KeyCode::E))
-			mCamera.Rise(-moveSpeed * deltaTime);
-		if (inputSystem->IsMouseDown(MouseButton::RBUTTON))
-		{
-			mCamera.Yaw(inputSystem->GetMouseMoveX() * turnSpeed * deltaTime);
-			mCamera.Pitch(inputSystem->GetMouseMoveY() * turnSpeed * deltaTime);
-		}
+		KlinkApp::Shutdown();
+		return;
 	}
 
+	float moveSpeed = 15.0f;
+	const float turnSpeed = 15.0f;
+	if (inputSystem->IsKeyDown(KeyCode::LSHIFT))
+		moveSpeed = 30.0f;
+	else
+		moveSpeed = 15.0f;
+	if (inputSystem->IsKeyDown(KeyCode::W))
+		mCamera.Walk(moveSpeed * deltaTime);
+	if (inputSystem->IsKeyDown(KeyCode::A))
+		mCamera.Strafe(-moveSpeed * deltaTime);
+	if (inputSystem->IsKeyDown(KeyCode::S))
+		mCamera.Walk(-moveSpeed * deltaTime);
+	if (inputSystem->IsKeyDown(KeyCode::D))
+		mCamera.Strafe(moveSpeed * deltaTime);
+	if (inputSystem->IsKeyDown(KeyCode::Q))
+		mCamera.Rise(moveSpeed * deltaTime);
+	if (inputSystem->IsKeyDown(KeyCode::E))
+		mCamera.Rise(-moveSpeed * deltaTime);
+	if (inputSystem->IsMouseDown(MouseButton::RBUTTON))
+	{
+		mCamera.Yaw(inputSystem->GetMouseMoveX() * turnSpeed * deltaTime);
+		mCamera.Pitch(inputSystem->GetMouseMoveY() * turnSpeed * deltaTime);
+	}
+#pragma endregion
+
+	mDeltaTime = deltaTime;
 }
 
 void GameState::Render()
 {
+	if (ShowPath(graph, context, path, 40, mDeltaTime, redrawReset))
+	{
+		isFinding = false;
+	}
+	redrawReset = false;
+
+	ShowGraph(graph, 10.0f);
+
+	SimpleDraw::DrawScreenCircle(graph.GetNode(static_cast<size_t>(startX + (startY * columns))).position, radius + 8.0f, Colours::Red);
+	SimpleDraw::DrawScreenCircle(graph.GetNode(static_cast<size_t>(endX + (endY * columns))).position, radius + 8.0f, Colours::Green);
+
 	SimpleDraw::Render(mCamera);
 }
 

@@ -44,42 +44,26 @@ private:
 	{
 		// Low settings
 		float lowHeightLimit;   // From 0 -> this number
-		float padding0[3];
-
 		float lowSlopeThreshold;
-		float padding1[3];
-
 		float lowScaling;       // UV Scaling factor for low texture
-		float padding2[3];
+		float padding0;
 
 		// Mid settings
 		float midHeightLimit;   // From lowHeightLimit -> this number
-		float padding3[3];
-
 		float midSlopeThreshold;
-		float padding4[3];
-
 		float midScaling;       // UV Scaling factor for mid texture
-		float padding5[3];
+		float padding1;
 
 		// High setting
 		float highHeightLimit;
-		float padding6[3];
-
 		float highSlopeThreshold;
-		float padding7[3];
-
 		float highScaling;      // UV Scaling factor for high texture
-		float padding8[3];
+		float padding2;
 
 		float blendingAmount;
-		float padding9[3];
-
 		float sinFactor = 0.3f;
-		float padding10[3];
-
 		float snowHeightFactor = 1.0f;
-		float padding11[3];
+		float padding3;
 	};
 	using OptionsBuffer = Klink::Graphics::TypedConstantBuffer<OptionsData>;
 	OptionsBuffer mOptionsBuffer;
@@ -117,7 +101,9 @@ private:
 
 	// Debug and Settings
 	bool mCanRenderTerrain = false;
-	int mNumErosionIterations = 100000;
+	int mNumErosionIterations = 200000;
+
+	bool mIsRenderingNormals = false;
 
 	bool mIsWireframe = false;
 	Vector3 mTerrainPosition = Vector3::Zero();

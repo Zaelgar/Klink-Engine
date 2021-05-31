@@ -1,1 +1,37 @@
-﻿
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin\Microsoft.Common.CurrentVersion.targets(1966,5): warning : The referenced project '..\..\Klink\Klink.vcxproj' does not exist.
+  GameState.cpp
+C:\Projects\Klink\Framework\Physics\Inc\PhysicsWorld.h(18,53): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Projects\Klink\Framework\AI\Inc\GraphSearch.h(109,1): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Projects\Klink\Framework\AI\Inc\GraphSearch.h(91): message : while compiling class template member function 'void Klink::AI::GraphSearch::BaseSearch<Klink::AI::NavGraph,Klink::AI::GraphSearch::InsertByLowestHCost<Klink::AI::NavGraph,Klink::AI::GraphSearch::PixelDistanceCostPolicy<Klink::AI::NavGraph>,Klink::AI::GraphSearch::EuclideanHeruristic<Klink::AI::NavGraph>>,Klink::AI::GraphSearch::PopBackPolicy,Klink::AI::GraphSearch::CanOpenNode<Klink::AI::NavGraph>>::Execute(Klink::AI::GraphSearch::GraphSearchContext &)'
+C:\Projects\Klink\VGP332\Hello_Pathfinding\GameState.cpp(218): message : see reference to function template instantiation 'void Klink::AI::GraphSearch::BaseSearch<Klink::AI::NavGraph,Klink::AI::GraphSearch::InsertByLowestHCost<Klink::AI::NavGraph,Klink::AI::GraphSearch::PixelDistanceCostPolicy<Klink::AI::NavGraph>,Klink::AI::GraphSearch::EuclideanHeruristic<Klink::AI::NavGraph>>,Klink::AI::GraphSearch::PopBackPolicy,Klink::AI::GraphSearch::CanOpenNode<Klink::AI::NavGraph>>::Execute(Klink::AI::GraphSearch::GraphSearchContext &)' being compiled
+C:\Projects\Klink\VGP332\Hello_Pathfinding\GameState.cpp(217): message : see reference to class template instantiation 'Klink::AI::GraphSearch::BaseSearch<Klink::AI::NavGraph,Klink::AI::GraphSearch::InsertByLowestHCost<Klink::AI::NavGraph,Klink::AI::GraphSearch::PixelDistanceCostPolicy<Klink::AI::NavGraph>,Klink::AI::GraphSearch::EuclideanHeruristic<Klink::AI::NavGraph>>,Klink::AI::GraphSearch::PopBackPolicy,Klink::AI::GraphSearch::CanOpenNode<Klink::AI::NavGraph>>' being compiled
+C:\Projects\Klink\Framework\AI\Inc\GraphSearch.h(276,1): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Projects\Klink\Framework\AI\Inc\GraphSearch.h(274): message : while compiling class template member function 'float Klink::AI::GraphSearch::EuclideanHeruristic<Klink::AI::NavGraph>::operator ()(const GraphType &,Klink::AI::GraphSearch::GraphSearchContext &,size_t,size_t)'
+          with
+          [
+              GraphType=Klink::AI::NavGraph
+          ]
+C:\Projects\Klink\Framework\AI\Inc\GraphSearch.h(226): message : see reference to function template instantiation 'float Klink::AI::GraphSearch::EuclideanHeruristic<Klink::AI::NavGraph>::operator ()(const GraphType &,Klink::AI::GraphSearch::GraphSearchContext &,size_t,size_t)' being compiled
+          with
+          [
+              GraphType=Klink::AI::NavGraph
+          ]
+C:\Projects\Klink\Framework\AI\Inc\GraphSearch.h(257): message : see reference to class template instantiation 'Klink::AI::GraphSearch::EuclideanHeruristic<Klink::AI::NavGraph>' being compiled
+C:\Projects\Klink\Framework\AI\Inc\GraphSearch.h(125): message : see reference to class template instantiation 'Klink::AI::GraphSearch::InsertByLowestHCost<Klink::AI::NavGraph,Klink::AI::GraphSearch::PixelDistanceCostPolicy<Klink::AI::NavGraph>,Klink::AI::GraphSearch::EuclideanHeruristic<Klink::AI::NavGraph>>' being compiled
+C:\Projects\Klink\Framework\AI\Inc\GraphSearch.h(276,109): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Projects\Klink\Framework\AI\Inc\GraphSearch.h(266,1): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Projects\Klink\Framework\AI\Inc\GraphSearch.h(265): message : while compiling class template member function 'float Klink::AI::GraphSearch::PixelDistanceCostPolicy<Klink::AI::NavGraph>::operator ()(const GraphType &,Klink::AI::GraphSearch::GraphSearchContext &,size_t,size_t)'
+          with
+          [
+              GraphType=Klink::AI::NavGraph
+          ]
+C:\Projects\Klink\Framework\AI\Inc\GraphSearch.h(224): message : see reference to function template instantiation 'float Klink::AI::GraphSearch::PixelDistanceCostPolicy<Klink::AI::NavGraph>::operator ()(const GraphType &,Klink::AI::GraphSearch::GraphSearchContext &,size_t,size_t)' being compiled
+          with
+          [
+              GraphType=Klink::AI::NavGraph
+          ]
+C:\Projects\Klink\Framework\AI\Inc\GraphSearch.h(205): message : see reference to class template instantiation 'Klink::AI::GraphSearch::PixelDistanceCostPolicy<Klink::AI::NavGraph>' being compiled
+C:\Projects\Klink\Framework\AI\Inc\GraphSearch.h(125): message : see reference to class template instantiation 'Klink::AI::GraphSearch::InsertByLowestGCost<Klink::AI::NavGraph,Klink::AI::GraphSearch::PixelDistanceCostPolicy<Klink::AI::NavGraph>>' being compiled
+C:\Projects\Klink\Framework\AI\Inc\GraphSearch.h(266,112): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Projects\Klink\Framework\AI\Inc\GraphUtil.h(295): warning C4715: 'ShowPath': not all control paths return a value
+  Hello_Pathfinding.vcxproj -> C:\Projects\Klink\x64\Debug\Hello_Pathfinding.exe

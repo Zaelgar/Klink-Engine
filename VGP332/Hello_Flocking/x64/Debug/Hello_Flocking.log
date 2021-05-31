@@ -1,1 +1,4 @@
-﻿
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin\Microsoft.Common.CurrentVersion.targets(1966,5): warning : The referenced project '..\..\VSProps\UsesKlink.vcxproj' does not exist.
+  GameState.cpp
+C:\Projects\Klink\Framework\Physics\Inc\PhysicsWorld.h(18,53): warning C4305: 'argument': truncation from 'double' to 'float'
+  Hello_Flocking.vcxproj -> C:\Projects\Klink\x64\Debug\Hello_Flocking.exe

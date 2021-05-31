@@ -301,7 +301,7 @@ int WINAPI WinMainOLD(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
 
 		ImGui::Text("Node Compare Count: %d", context.nodeCompares);
 		DebugUI::EndRender();
-		if (ShowPath(graph, context, path, 50, loopTimer, redrawReset))
+		if (ShowPath(graph, context, path, 50, 1.0f, redrawReset))
 		{
 			isFinding = false;
 		}

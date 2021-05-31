@@ -30,35 +30,21 @@ cbuffer MaterialBuffer : register(b2)
 
 cbuffer OptionsBuffer : register(b3)
 {
-    float lowHeightLimit;
-    float3 padding0;
-    float lowSlopeThreshold;
-    float3 padding1;
-    float lowScaling;
-    float3 padding2;
+    float lowHeightLimit : packoffset(c0.x);
+    float lowSlopeThreshold : packoffset(c0.y);
+    float lowScaling : packoffset(c0.z);
     
-    float midHeightLimit;
-    float3 padding3;
-    float midSlopeThreshold;
-    float3 padding4;
-    float midScaling;
-    float3 padding5;
+    float midHeightLimit : packoffset(c1.x);
+    float midSlopeThreshold : packoffset(c1.y);
+    float midScaling : packoffset(c1.z);
     
-    float highHeightLimit;
-    float3 padding6;
-    float highSlopeThreshold;
-    float3 padding7;
-    float highScaling;
-    float3 padding8;
+    float highHeightLimit : packoffset(c2.x);
+    float highSlopeThreshold : packoffset(c2.y);
+    float highScaling : packoffset(c2.z);
     
-    float blendingAmount;
-    float3 padding9;
-    
-    float sinFactor;
-    float3 padding10;
-    
-    float snowHeightFactor;
-    float3 padding11;
+    float blendingAmount : packoffset(c3.x);
+    float sinFactor : packoffset(c3.y);
+    float snowHeightFactor : packoffset(c3.z);
 }
 
 Texture2D lowAlbedo : register(t0);
@@ -125,7 +111,7 @@ VSOutput VS(VSInput input)
 }
 
 float4 PS(VSOutput input) : SV_Target
-{	
+{
 	// Fix normals from rasterizer and construct the tangent space matrix
     float3 n = normalize(input.normal);
     float3 b = normalize(input.binormal);
@@ -171,7 +157,7 @@ float4 PS(VSOutput input) : SV_Target
     
     float snowHeightOffset = (sin(sinFactor * input.position3.x) * snowHeightFactor); // change snow height based on a sinwave using the x position of the vertex in local space.
     
-    float inputPosition = input.position3.y - snowHeightOffset;
+    float inputPosition = input.position3.y;
     float midHeight = midHeightLimit - snowHeightOffset;
     
     if (inputPosition > midHeight)
@@ -191,7 +177,7 @@ float4 PS(VSOutput input) : SV_Target
         amount = clamp((input.position3.y - lowHeightLimit) / ((midHeightLimit - lowHeightLimit) * blendingAmount), 0.0f, 1.0f);
         finalDiffuseColour = lerp(lowDiffuseMapColour, midDiffuseMapColour, amount);
         sampledNormal = lerp(lowSampledNormal, midSampledNormal, amount);
-    }   
+    }
     
     // ---------------------------------------------------
     float3 unpackedNormal = (sampledNormal * 2) - 1;
@@ -216,7 +202,7 @@ float4 PS(VSOutput input) : SV_Target
     
     if (realDepth - 0.00001f > recordedDepth)
         finalCol = ambient * finalDiffuseColour;
-    else    
+    else
         finalCol = (ambient + diffuse) * finalDiffuseColour;
     
     return finalCol;

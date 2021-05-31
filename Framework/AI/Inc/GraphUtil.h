@@ -243,20 +243,20 @@ inline void ShowGraph(NavGraph& graph, float radius)
 	}
 }
 
-inline bool ShowPath(NavGraph& graph, GraphSearchContext& context, std::list<size_t>& path, int pathsPerSecond, Timer& timer, bool reset, bool showSearchPath = true)
+inline bool ShowPath(NavGraph& graph, GraphSearchContext& context, std::list<size_t>& path, int pathsPerSecond, float deltaTime, bool reset, bool showSearchPath = true)
 {
-	static float timeSinceLastDraw = 0;
-	timeSinceLastDraw += timer.GetDeltaTime();
 	static int linesAllowed = 0;
-
 	if (reset)
 	{
 		linesAllowed = 0;
 		return false;
 	}
 
+	static float timeSinceLastDraw = 0;
+	timeSinceLastDraw += deltaTime;
+
 	// If the increment to the next addition of a line is met, allow one more draw line
-	if (timeSinceLastDraw >= (1000 / pathsPerSecond))
+	if (timeSinceLastDraw >= (1.0f / pathsPerSecond))
 	{
 		linesAllowed++;
 		timeSinceLastDraw = 0;	// Reset draw line timer to zero
@@ -269,10 +269,10 @@ inline bool ShowPath(NavGraph& graph, GraphSearchContext& context, std::list<siz
 	{
 		for (auto& node : context.checked)
 		{
+			if (lineDrawCount >= linesAllowed)
+				return false;
 			SimpleDraw::DrawScreenCircle(graph.GetNode(node).position, 22.0f, Colours::Yellow);
 			lineDrawCount++;
-			if (lineDrawCount == linesAllowed)
-				return false;
 		}
 	}
 

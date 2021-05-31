@@ -12,8 +12,8 @@ namespace Klink::Terrain
 		struct ErosionSettings
 		{
 			int erosionRadius = 3;
-			float inertia = 0.3f;
-			float sedimentCapacityFactor = 4.0f;
+			float inertia = 0.1f;
+			float sedimentCapacityFactor = 6.0f;
 			float minSedimentCapacity = 0.01f;
 			float erodeSpeed = 0.3f;
 			float depositSpeed = 0.3f;
@@ -21,7 +21,7 @@ namespace Klink::Terrain
 			float gravity = 4.0f;
 			int maxDropletLifetime = 30;
 			float initialWaterVolume = 1.0f;
-			float initialSpeed = 1.0f;
+			float initialSpeed = 2.8f;
 		};
 
 		// Initialize the erosion class by inserting your own ErosionSettings (SetErosionSettings) struct, or leave blank for defaults
