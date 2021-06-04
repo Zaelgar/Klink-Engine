@@ -83,12 +83,12 @@ void GameState::DebugUI()
 			auto vel = RandomOnUnitSphere() * 0.1f;
 			vel.y = (Abs(vel.y));
 
-			auto particle = new Particle3();
+			auto particle = new Object3D();
 			particle->SetPosition(Vector3::Zero());
 			particle->SetVelocity(vel);
 			particle->radius = 0.05f;
 			particle->invMass = 1.0f;
-			mPhysicsWorld.AddParticle(particle);
+			mPhysicsWorld.AddObject(particle);
 		}
 	}
 	ImGui::End();

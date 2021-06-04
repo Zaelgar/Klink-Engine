@@ -153,7 +153,7 @@ void PhysicsWorld::ResolveCircleBoundCollision(float deltaTime)
 	float otherRadius = 0.f;
 	Vector2 otherCenter = Vector2::Zero();
 
-	for (size_t objectIndex = 0; objectIndex < mObject2s.size()-1; ++objectIndex)
+	for (size_t objectIndex = 0; objectIndex < mObject2s.size(); ++objectIndex)
 	{
 		object = mObject2s[objectIndex];
 		objectRadius = object->mCircleBoundingBox.radius;

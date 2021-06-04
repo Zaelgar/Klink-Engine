@@ -1,1 +1,16 @@
-﻿
+﻿  GameState.cpp
+C:\Projects\Klink\Framework\Physics\Inc\PhysicsWorld.h(18,53): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Projects\Klink\VGP337\Hello_TravellingSalesman\GameState.cpp(37,30): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Projects\Klink\VGP337\Hello_TravellingSalesman\GameState.cpp(37,24): warning C4244: 'initializing': conversion from 'float' to 'const int', possible loss of data
+C:\Projects\Klink\VGP337\Hello_TravellingSalesman\GameState.cpp(40,1): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Projects\Klink\VGP337\Hello_TravellingSalesman\GameState.cpp(42,1): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Projects\Klink\VGP337\Hello_TravellingSalesman\GameState.cpp(42,1): warning C4267: 'initializing': conversion from 'size_t' to 'const int', possible loss of data
+C:\Projects\Klink\VGP337\Hello_TravellingSalesman\GameState.cpp(46,31): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Projects\Klink\VGP337\Hello_TravellingSalesman\GameState.cpp(46,25): warning C4244: 'initializing': conversion from 'float' to 'const int', possible loss of data
+C:\Projects\Klink\VGP337\Hello_TravellingSalesman\GameState.cpp(49,1): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Projects\Klink\VGP337\Hello_TravellingSalesman\GameState.cpp(233,74): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Projects\Klink\VGP337\Hello_TravellingSalesman\GameState.cpp(234,74): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+  WinMain.cpp
+C:\Projects\Klink\Framework\Physics\Inc\PhysicsWorld.h(18,53): warning C4305: 'argument': truncation from 'double' to 'float'
+  Generating Code...
+  Hello_TravellingSalesman.vcxproj -> C:\Projects\Klink\x64\Debug\Hello_TravellingSalesman.exe

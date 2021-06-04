@@ -1,1 +1,6 @@
-﻿
+﻿  GameState.cpp
+C:\Projects\Klink\Framework\Physics\Inc\PhysicsWorld.h(18,53): warning C4305: 'argument': truncation from 'double' to 'float'
+  WinMain.cpp
+C:\Projects\Klink\Framework\Physics\Inc\PhysicsWorld.h(18,53): warning C4305: 'argument': truncation from 'double' to 'float'
+  Generating Code...
+  Hello_Keyframe.vcxproj -> C:\Projects\Klink\x64\Debug\Hello_Keyframe.exe

@@ -10,6 +10,8 @@ std::filesystem::path matPath = "../../Assets/Models/Imported/Zombie_Idle_30.mat
 
 void GameState::Initialize()
 {
+	GraphicsSystem::Get()->SetClearColour({ 0.3f, 0.3f, 0.3f, 1.0f });
+
 	// Camera
 	mCamera.SetPosition({ 0.0f, 200.0f, -100.0f });
 	mCamera.SetTarget({ 0.0f, 50.0f, 75.0f });
@@ -103,7 +105,7 @@ void GameState::Render()
 	// Math first
 	auto view = mCamera.GetViewMatrix();
 	auto proj = mCamera.GetPerspectiveMatrix();
-	auto world = Matrix4::Identity();
+	auto world = Matrix4::Identity() * Matrix4::Scaling(0.1f);
 
 	auto transform = Matrix4::Transpose(world * view * proj);
 
@@ -128,6 +130,9 @@ void GameState::Render()
 	mTransformBuffer.BindVS(0);
 	mTransformBuffer.BindPS(0);
 
+	mDirectionalLight.direction.Normalize();
+	mLightBuffer.Set(mDirectionalLight);
+
 	mLightBuffer.BindVS(1);
 	mLightBuffer.BindPS(1);
 
@@ -139,7 +144,7 @@ void GameState::Render()
 	mZombieModel.Render();
 
 	// Debug Grid
-	SimpleDraw::DrawDebugGrid(100, Colours::DarkSlateGray);
+	SimpleDraw::DrawDebugGrid(100, {0.4f, 0.4f, 0.4f, 1.0f});
 	SimpleDraw::Render(mCamera);
 }
 
@@ -147,7 +152,7 @@ void GameState::DebugUI()
 {
 	ImGui::Begin("Settings");
 
-	
+	ImGui::DragFloat3("Light Rotation", &mDirectionalLight.direction.x, 0.01f);
 
 	ImGui::End();
 }

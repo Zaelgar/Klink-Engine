@@ -314,7 +314,7 @@ void GameState::DebugUI()
 	{
 		ImGui::DragFloat("Height Scale", &mHeightScale, 0.1f, 1.0f, 100.0f);
 		ImGui::DragFloat("Size Scale", &mScale, 0.1f, 1.0f, 100.0f);
-		ImGui::DragInt("Map Image To Load", &mMapType, 1, 1, 6);
+		ImGui::DragInt("Map Image To Load", &mMapType, 1, 1, 7);
 	}
 
 	if (ImGui::CollapsingHeader("Erosion Settings"))
@@ -400,6 +400,9 @@ void GameState::BuildTerrain(int type)
 		break;
 	case 6:
 		mFilename = "heightmap.png";
+		break;
+	case 7:
+		mFilename = "smallheightmap.png";
 		break;
 	}
 

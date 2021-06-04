@@ -144,29 +144,3 @@ std::vector<float> NeuralNetwork::GetResults() const
 		results.push_back(outputLayer[neuron].GetOutputValue());
 	return results;
 }
-
-/*
-
-Homework:
-
-Watch both videos
-Recording + 4th link in powerpoint video
-
-There is a bug in the code, see if you can figure it out!!!!!!!!!!!!!!!!!!!!!!
-Add a console project, try the code out.
-
-Train using XOR
-topology
-inputs  hiddenlayer  outputs
-2, 2, 1
-
-setup training data
-create values such that,
-0.   0, 0 -> 0
-1.   1, 0 -> 1
-2.   0, 1 -> 1
-3.   1, 1 -> 0
-
-feedforward, back propagate over and over until correct. give above scenarios at random to properly train it
-training index: 0, 1, 0, 2, 2, 1, 3, 0, 1, 2 ... etc.    random stuff :)
-*/

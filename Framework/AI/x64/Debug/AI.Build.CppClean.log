@@ -14,11 +14,11 @@ c:\projects\klink\framework\ai\x64\debug\perceptionmodule.obj
 c:\projects\klink\framework\ai\x64\debug\obstacleavoidancebehaviour.obj
 c:\projects\klink\framework\ai\x64\debug\fleebehaviour.obj
 c:\projects\klink\framework\ai\x64\debug\evadebehaviour.obj
-c:\projects\klink\framework\ai\x64\debug\cohesionbehaviour.obj
 c:\projects\klink\framework\ai\x64\debug\arrivebehaviour.obj
+c:\projects\klink\framework\ai\x64\debug\cohesionbehaviour.obj
 c:\projects\klink\framework\ai\x64\debug\alignmentbehaviour.obj
-c:\projects\klink\framework\ai\x64\debug\agent.obj
 c:\projects\klink\framework\ai\x64\debug\aiworld.obj
+c:\projects\klink\framework\ai\x64\debug\agent.obj
 c:\projects\klink\x64\debug\ai.lib
 c:\projects\klink\framework\ai\x64\debug\ai.tlog\cl.command.1.tlog
 c:\projects\klink\framework\ai\x64\debug\ai.tlog\cl.read.1.tlog

@@ -23,7 +23,7 @@
     <ProjectGuid>{298158DF-4C24-4B48-8D26-C6D20B961C11}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>HelloFSM</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
