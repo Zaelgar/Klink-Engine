@@ -47,5 +47,7 @@ Klink Engine is a custom 2D and 3D game engine written in C++ and DirectX 11. It
 ## Hydraulic Erosion Simulation
 One of my favourite things about game development is the amazing things people have written to create content. The world of procedural generation is so large and I wanted to get my hands dirty with it. I love procedural terrain, but a lot of noise-based implementations don't look realistic. I researched some ways to mitigate that and I learned about hydraulic erosion. I am currently working on making this a standalone project on GitHub.
 
+### Before Erosion
 ![Raw Heightmap](https://raw.githubusercontent.com/Zaelgar/Zaelgar/main/BeforeErosion.png)
+### After Erosion
 ![Heightmap After Erosion](https://raw.githubusercontent.com/Zaelgar/Zaelgar/main/AfterErosion.png)
